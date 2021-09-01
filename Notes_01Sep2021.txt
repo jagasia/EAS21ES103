@@ -452,3 +452,348 @@ Now you understand what is :
 PROJECTION
 SELECTION
 
+==============================================POST LUNCH===========================
+Now a days, Oracle corporation owns MySql also and Oracle of course.
+
+There are lot of RDBMS products available in the market.
+Oracle is the leader in the RDBMS industry
+	in terms of security, capacity, availability, robustness
+
+
+Oracle offeres
+	free version of Database product called "Express Edition"
+	commercial version, that we have to purchase is "Enterprise Edition"
+
+
+sys
+system
+hr
+	these are some of the users automatically created while installing Oracle in our computer
+	while installation, it will ask you to set the passwords for sys and system.
+
+	You will assign the role of "sys" to someone. "system" to someone.
+
+	If sys forgots the password, then system can change the password of sys without even knowing old password.
+
+
+	"sys" or "system" are the administrators, commonly called as "DBA". The dba can change the password of any user in oracle.
+
+Oracle
+MS SQL Server
+IBM DB2
+
+
+We have downloaded oracle 11 g and installed it 
+in desktop you can see "Get Started With Oracle Database 11g Express Edition"
+
+XE would be icon
+
+During installation, we have set the password for "SYS" and "SYSTEM" accounts:
+	password
+
+There are 2 ways to login to oracle  (at this moment)
+	1) in destop, find the icon "XE" 	Get Started With Oracle Database 11g Express Edition 
+	2) in start menu, type run sql command line
+
+
+in start menu:
+	run sql command line
+		connect sys as sysdba
+		password
+
+
+After you logged into the command line sql:
+	1) unlock the account "HR"
+		there is an account called "hr". which is locked once installation is completed.
+		a DBA like SYS	can unlock this user. ANd also set password for this user.
+
+		i am going to unlock "hr" now:
+			ALTER USER hr ACCOUNT unlock;
+
+		I AM going to change the password of "hr" to "hr":
+			ALTER USER hr IDENTIFIED BY hr;
+
+
+Lets learn to use APEX		(Application Express)
+for that, in desktop, double click the XE (Get Started With Oracle Database 11g Express Edition )
+
+
+
+While opening that "Get Started", if error comes,
+	go to 
+		http://127.0.0.1:8080/apex/f?p=4950
+	directly in a browser. If that works,
+	right click the desktop icon and go to the file location.
+	right click the icon and set URL as 
+		http://127.0.0.1:8080/apex/f?p=4950
+
+Now, once "APEX" has opened, click "Application Express"
+	Login as a database user which has been granted the DBA database role 
+
+		sys
+		password
+	now we have logged in as dba.
+
+
+	
+Single row function:
+	SELECT upper(first_name) FROM EMPLOYEES;	--returns 1 result per row 	(every row)
+
+Aggregate function:
+	SELECT SUM(SALARY) FROM EMPLOYEES;		--returns only 1 result per table/ group
+
+
+
+
+Single Row Functions:
+	numeric
+	character
+	date
+	conversion
+	miscellaneous
+
+
+
+where  can we use single row functions?
+	SELECT UPPER(FIRST_NAME) FROM EMPLOYEES;
+here, we used it in select clause
+	SELECT * FROM EMPLOYEES WHERE UPPER(FIRST_NAME)='STEVEN';
+here, we use it in where clause
+
+similarly we can use it in ORDER BY also
+	SELECT FIRST_NAME FROM EMPLOYEES ORDER BY LENGTH(FIRST_NAME);
+here, we use it in order by clause
+
+
+select 1.2356, round(1.2356,2) from dual;			//1.24
+select 1.2356, trunc(1.2356,2) from dual;			//1.23
+
+ROUND		round to specific digits 		based on 5 or more becomes next value
+TRUNC		just cut the specific digits		not based on 5 or more
+MOD		divide and return the reminder
+			
+		there are 55 elements in an array
+			0 to 54
+
+		any number MOD 55		will return between 0 and 54 only
+
+		lets take example of smaller range
+
+anything mod 4 returns 0-3 only
+
+40 mod 4		is 0
+17 mod 4		is 1
+26 mod 4		is 2
+3 mod 4			is 3
+4 mod 4			is 0
+
+
+
+SELECT MONTHS_BETWEEN(SYSDATE, '01-JAN-21') FROM DUAL;
+	this is correct in oracle.
+
+ONLY IN APEX:
+	SELECT MONTHS_BETWEEN(SYSDATE, '01/01/2021') FROM DUAL;
+
+
+
+
+dd-MMM-yy				in all other oracle queries
+MM/dd/yyyy				only in apex editor
+
+select employee_id, first_name, add_months(hire_date, 240) from employees;
+
+
+CONVERSION FUNCTIONS:
+--------------------
+	TO_NUMBER
+	TO_CHAR
+	TO_DATE
+
+
+Implicit conversion happens when:
+	we provide char data to date
+		'01-Mar-2021'			this is a char data but is implicitly converted into date because the 							date format is correct
+	'2021-03-01'		THIS WILL NOT BE IMPLICITLY CONVERTED INTO DATE
+		SELECT TO_DATE('2021-03-01','yyyy-MM-dd') from dual;
+
+
+
+Assignment:
+-----------
+1) single row functions
+	numeric
+	char
+	date
+	conversion
+	miscellaneous
+---------------------------------------------
+Clauses in SQL
+	Group By Clause
+	Having Clause
+	Order By Clause
+	Order of Execution of Clauses in SELECT Statement
+
+
+
+What is the use of Group By clause in SELECT Query?
+	
+Whenever we use aggregate functions, we get 1 result per table/ relation
+
+
+SELECT EMPLOYEE_ID, FIRST_NAME, SALARY, DEPARTMENT_ID FROM EMPLOYEES;
+	we got 107 rows as result
+
+SELECT SUM(SALARY) FROM EMPLOYEES;
+	we got only 1 row as a result
+
+
+SELECT DEPARTMENT_ID, SUM(SALARY) FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID;
+
+SELECT DEPARTMENT_ID, COUNT(EMPLOYEE_ID), SUM(SALARY), AVG(SALARY) FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID;
+
+SELECT job_id, SUM(SALARY) FROM EMPLOYEES
+group by job_id;
+
+
+
+What is the use of Having?
+	WHERE condition restricts the rows.
+	HAVING condition restricts the groups.
+	
+	WHERE condition cannot have aggregate functions in condition
+		ex:		WHERE SUM(SALARY)>10000		--is not possible
+	but
+		ex:		HAVING SUM(SALARY)>10000	--is possible
+
+
+SELECT job_id, SUM(SALARY) FROM EMPLOYEES
+group by job_id
+having sum(salary)>30000;
+
+
+-------------------------
+What is the use of ORDER BY clause?
+
+SELECT job_id, SUM(SALARY) FROM EMPLOYEES
+group by job_id
+having sum(salary)>30000
+ORDER BY sum(salary) desc;
+
+SELECT job_id, SUM(SALARY) FROM EMPLOYEES
+group by job_id
+having sum(salary)>30000
+ORDER BY sum(salary) asc;
+
+
+asc is not mandatory. by default it is asc only
+
+sorting works for character, date, numeric columns also
+
+
+SELECT FIRST_NAME FROM EMPLOYEES ORDER BY FIRST_NAME DESC;
+
+
+ORDER BY must be the last statement in SELECT query
+
+
+SELECT SUM(SALARY) FROM EMPLOYEES
+where employee_id<120
+group by job_id
+having sum(salary)>20000
+;
+
+
+where condition before group by.
+
+
+1) result is obtained based on column list and where conditions
+2) grouping
+3) group condition in "having"
+4) order by
+
+=============================================
+Why do we need joins?
+	Whenever we need to retrieve data from more than 1 table, JOIN is required
+
+
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+FROM EMPLOYEES E JOIN DEPARTMENTS D
+ON E.DEPARTMENT_ID=D.DEPARTMENT_ID
+ORDER BY E.EMPLOYEE_ID;
+
+
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+FROM EMPLOYEES E, DEPARTMENTS D
+WHERE E.DEPARTMENT_ID=D.DEPARTMENT_ID
+ORDER BY E.EMPLOYEE_ID;
+
+
+inner join produces only matching rows.
+	So Kimberely Grant whose, department id is null, do not have matching department id in departments table.
+	So his record is not found in the previous query.
+
+so we need to get all the rows from employees table, including "kimberely grant" record
+
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+FROM EMPLOYEES E, DEPARTMENTS D
+WHERE E.DEPARTMENT_ID=D.DEPARTMENT_ID(+)
+ORDER BY E.EMPLOYEE_ID;
+
+the above query is a theta join where left outer join is implemented.
+what is a left outer join?
+	all records from the left side table, and the matching records from right side table. if no matching found in 		right side table, then null is displayed
+
+tHE same can be done using JOIN syntax as:
+
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+FROM EMPLOYEES E LEFT OUTER JOIN DEPARTMENTS D
+ON E.DEPARTMENT_ID=D.DEPARTMENT_ID
+ORDER BY E.EMPLOYEE_ID;
+
+
+
+
+
+Now, we do not find some department ids in the above query. WHY?
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+FROM EMPLOYEES E RIGHT OUTER JOIN DEPARTMENTS D
+ON E.DEPARTMENT_ID=D.DEPARTMENT_ID
+ORDER BY E.department_ID;
+
+
+
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+FROM EMPLOYEES E FULL OUTER JOIN DEPARTMENTS D
+ON E.DEPARTMENT_ID=D.DEPARTMENT_ID
+ORDER BY E.department_ID;
+
+
+
+CROSS JOIN
+	is a cartesian product of both tables
+SELF JOIN
+NATURAL JOIN
+	occurs when there is a common column. means, column names are same
+SELECT * FROM EMPLOYEES JOIN DEPARTMENTS
+USING (DEPARTMENT_ID);
+
+NON EQUI JOIN
+	
+SELECT FIRST_NAME, LAST_NAME, SALARY, J.JOB_TITLE
+ FROM EMPLOYEES E JOIN JOBS J 
+ ON E.SALARY BETWEEN J.MIN_SALARY AND J.MAX_SALARY
+ ORDER BY EMPLOYEE_ID;
+
+
+
+SELF JOIN
+---------
+select e.employee_id, e.first_name, e.last_name, e.salary, e.manager_id,
+m.first_name || ' ' || m.last_name "Manager"
+from employees e join employees m
+on e.manager_id=m.employee_id
+order by e.employee_id;
+
