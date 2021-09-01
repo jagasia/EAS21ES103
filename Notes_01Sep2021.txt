@@ -1,0 +1,454 @@
+
+Trainer
+	Jagadeeswaran Rangappan
+
+
+Session begins at 9:00 am
+Break	at 11:00 am		
+Lunch break at 1:00 pm	to 2:00 pm
+Break at 4:00 pm
+
+
+
+RDBMS & SQL
+	usually, our java batches have MySql
+	very rarely, batches learn Oracle sql and plsql
+
+SalesForce is the domain
+
+java is the technology
+
+----------------------------------------------
+RDBMS
+-----
+	Database Management Systems
+
+		Relational Algebra	
+			Dr. E.F. Codd
+		12 rules. if we follow that then we can create a RDBMS
+
+wHAT is the RDBMS?
+	Relational Database Management System
+
+If you see accounts book, ledger
+	any form of information system was maintained in the form of TABLE
+
+	Tabular format.		
+what is tabular format?
+	row column format
+
+	this row column format is called as Relation
+
+A query returns a portion of the table.
+	that result is a relation. But not a table.
+
+A table is an example for relation (because, table is also row column format)
+
+Relation is clear now.
+
+What is Relationship?
+----------------------
+
+entity
+	becomes table in the database
+	becomes class in java program
+
+
+Relations have relationship
+
+Friends have friendship
+
+table is an example for relation.
+	then between tables, relationship can exist
+
+
+in Relational algebra, Dr. Codd has given few terms	(Terminology)
+
+Relation
+Relationship
+Table
+Row	/	Record		/	Tuple
+Column	/	Field		/	Attribute
+Data
+Cell		intersection of row and column
+Entity
+NULL			means 	nothing		NOT EVEN A SPACE OR ZERO	missing info
+Operators
+	UNION
+		combines records from 2 queries
+			if first query returns 5 records
+			if second query returns 5 records
+		then obviously we expect (5+5) 10 records. But if any records are exactly same found in both then, duplicates are eliminated
+			5+5 may not be exactly 10. it may be <=10
+	UNION ALL
+		if first query returns 5 records and second query returns 5 records
+		then the result will be definitely 5+5 ie., 10 records 	(including duplicates)
+	INTERSECT
+		is nothing but the common data found in both relation
+	MINUS
+		first minus second.		All from first query, minus the common element
+	DIVIDE
+		there are 5 customers.	(5 rows in customer table)
+		there 10 products.	(10 rows in product table)
+		display all customers who have purchased all products
+		ie., in SALES table, if a customer found to have records for all products
+		
+JOIN
+PRODUCT
+CARTESIAN PRODUCT
+
+
+
+
+1 1 1 1 1 
+1 1 1 
+
+6/2
+
+1 1 1 1 1 1 
+1 1
+
+	3
+
+3 rows in table 1
+3 rows in table 2
+
+so totally 3 * 3 = 9 combinations i can get. This is product
+	what happens if all 3 customers buy all three products? 
+		it will be 9 transactions
+
+
+------------------------------------------------------------
+Database Designing:
+-------------------
+	I am going to finally arrive at the database diagram.
+	Tables and columns in each table
+
+	how many tables should be created?
+	What are those tables?
+	in each table, what are the columns to be present?
+
+
+Main purpose of a project is to maintain information.
+
+data entered using
+	textbox
+	it allowed selecting from given options
+	date can be chosen from calender
+	your current location is an input		(Ola, Uber)
+		based on that input, a suitable cab will be allocated
+
+
+
+Database designing is done scientifically using 
+	Normalization
+
+-----------------------------------------
+Normalization is a scientific approach, step by step activity to arrive at the best choice of tables and columns
+Normalization aims to reduce the redundancy of data
+	What is redundancy?
+		is unnecessary repeatation of data in multiple locations
+	ex:
+		"ATTENDANCE" table
+		Date 	AssociateId 	AssociateName	Phone	Email	Status
+		-----------------------------------------------------------------
+
+	WHat is the problem?
+		every day we mark attendance.
+		so every date, the associate name, phone, email is repeated unnecessarily.
+		also some day, their phone and email might be entered differently causing inconsistency
+		Name itself
+			Jagadeeswaran R
+			R. Jagadeeswaran
+			Jagadees waran R
+			Jagadeeswaran. R
+		Look at the inconsistencies in the name itself
+
+		DATE ASSOCIATEID STATUS
+		--------------------------
+
+		Look at the above table having only 3 columns.
+		TO maintain name, phone, email, we can create ASSOCIATE TABLE
+		ASSOCIATE table
+			ASSOCIATEID	NAME	PHONE	EMAIL
+			----------------------------------------
+		Here, name, phone and email for every associate is found only once. Not for every day they attend
+
+
+	by splitting a large table into small tables, we improve consistency and reduce redundancy.
+
+This normalization is achieved in multiple steps:
+	1NF
+	2NF
+	3NF
+	BCNF
+
+A table is said to be in 1st Normal Form if every cell in the table has precisely only 1 data.
+	ex:
+		NAME			ADDRESS
+		-----			-------
+		Rama Krishna		Shanti Apartments, Chennai - 600002 Tamil Nadu
+		Suresh Krishna		Abcd colony, Bengaluru - 550001 Karnataka
+
+Now, if you see this table having 2 columns
+	information search is difficult to find by city or find by state or find by apartment name etc
+
+	i need to find all customers from chennai?
+	i need to find all customers whose name is Krishna?
+
+	to simplify,
+
+	FIRSTNAME 	LASTNAME		ADDRESS		CITY		PINCODE		STATE
+	----------------------------------------------------------------------------------------------
+	RAMA		KRISHNA		SHANTI APT		CHENNAI		600002		TAMIL NADU
+	SURESH		KRISHNA		ABCD COLONY		BENGALURU	550001		KARNATAKA
+
+
+	SELECT * FROM CUSTOMER WHERE LASTNAME='KRISHNA';		--very simple
+
+
+There comes a concept called "Functional Dependency"
+	a column is dependent on another column
+		ex:		state may be dependent on pincode or city.
+
+if you take ATTENDANCE table
+		DATE, ASSOCIATEID, NAME, PHONE, EMAIL
+
+	for attendance, why should the phone and email be recorded?????
+
+	here functional dependency in 2nd Normal form advice us to RETAIN only columns dependent on the whole key.
+
+	whole key is ATTENDANCE. For functionality of attendance, 
+		DATE	associateid STATUS
+	are only enough
+
+	remaining values should be formed as a table
+		PHONE, EMAIL are dependent on the ASSOCIATE
+
+	ASSOCIATE
+	----------
+	ASSOCIATEID	NAME	PHONE EMAIL	ADDRESS 	CITY	PINCODE 	STATE
+
+Suppose, if ASSOCIATE table had, address, phone, email,
+	then we in 2nd Normal form, we are ok to have them also. Though they are dependent on the whole key. Means,
+	they are informed by the associate. They are related to the customer. 2NF they are fine
+
+But to be in 3NF, the address, is ok. But pin code and state are not dependent on the PRIMARY KEY ie., ASSOCIATE ID
+	so they are split now
+
+	CITYMASTER
+	CITYID		CITY	PINCODE		STATE
+
+	Now, the ASSOCIATE TABLE WILL CONTAIN ONLY CITYID
+		REMAINING INFO we can refer to city master table
+
+
+1 NF		-	Each cell in the table has precisely only 1 data
+2 NF		-	Each column in the table is functionally dependant on the whole table
+3 NF		-	Each column in the table is functionally dependent on the PRIMARY KEY of the table
+BCNF		-	Boyce-Codd are 2 scientists. They call a table is in BCNF if the table has more than 1 determinant. Means, candidate key.
+			They are overlapping. 
+
+Candidate Key
+	is any column or columns that is/are used to identify a row in the table uniquely.
+
+It is a candidate for primary key.
+
+
+Candidate Key
+Primary Key
+Alternate Key
+Foreign Key
+Unique Key
+Composite Key
+Super Key
+
+There is a portal where we can practise SQL language free of cost. 
+More importantly, it has sample tables and lot of records.
+
+livesql.oracle.com
+	signup for free
+
+
+
+usually in databases,
+	why table name and column names are in _ format
+		FIRST_NAME
+		LAST_NAME
+		PHONE_NUMBER
+
+	Look at this _ underscore
+
+
+	Because, usually, in Database tables, we follow UPPERCASE convention.
+
+in Java:
+	FirstName
+	LastName
+	PhoneNumber
+
+this is the format we use in Java:
+	the same fields in database when they are in upper case, the readability is difficult
+	FIRSTNAME		it does not look like 2 words. so it is changed into:
+	FIRST_NAME
+
+So for every capital is changed like	N	=	_N		
+	MANAGER_ID		in java it will be ManagerId		I	=	_I				
+
+
+------------------------------
+Lets learn few SQL commands now:
+SQL stands for "Structured Query Language"
+	in sql there are many languages
+		DML	-	Data Manipulation Language
+		DDL	-	Data Definition Language
+		DQL	-	Data Query Language
+		DCL	-	Data Control Language
+		TCL	-	Transaction Control Language
+
+DML:
+----
+	INSERT
+	UPDATE
+	DELETE
+	MERGE		(in oracle)
+DDL:
+----
+	CREATE
+	ALTER
+	DROP
+	TRUNCATE
+DQL:
+-----
+	SELECT
+DCL:
+-----
+	GRANT
+	REVOKE
+TCL:
+-----
+	COMMIT
+	ROLLBACK
+	SAVEPOINT
+
+
+
+
+---------------------------------
+SELECT:
+	WHERE condition
+	ORDER BY
+	GROUP BY
+	HAVING
+	JOIN
+	SUB QUERY
+	OPERATORS
+		LIKE
+		NOT LIKE
+		BETWEEN
+		NOT BETWEEN
+		=
+		!=			<>
+		IN
+		NOT IN
+		>
+		<
+		>=
+		<=
+		AND
+		OR
+		NOT
+		ANY			/	SOME
+		ALL
+	FUNCTIONS
+		AGGREGATE FUNCTIONS
+			SUM
+			MIN
+			MAX
+			COUNT
+			AVG
+		SINGLE ROW FUNCTIONS
+			UPPER
+			LOWER
+			SUBSTRING
+			COALESCE
+			NULLIF
+			NVL
+			NVL2
+			DECODE
+			
+
+
+-----------------------
+What is the main aim of select query?
+	to get / to retrieve data from a table or tables
+
+	can we get all rows from a table?
+		yes!		SELECT * FROM TABLE			* means, all columns. 
+		since there is no condition given "where" then all rows are displayed
+
+
+in live sql portal,
+	lets go to sql worksheet
+
+There is a table called EMPLOYESS but it is inside a schema called "HR"
+	select * from hr.employees
+	SELECT * FROM HR.EMPLOYEES
+
+	I am getting 107 records for the above query.
+	to run a query, i used "Ctrl+Enter"		or click "Run" button on right top
+
+
+These are the columns found:
+EMPLOYEE_ID	FIRST_NAME	LAST_NAME	EMAIL	PHONE_NUMBER	HIRE_DATE	JOB_ID	SALARY	COMMISSION_PCT	MANAGER_ID	DEPARTMENT_ID
+
+I do not want to see all the columns.
+To show only EMPLOYEE_ID, FIRST_NAME, LAST_NAME, SALARY
+
+i will modify the query. 
+	Instead of *
+i will use exact column names in the query
+	SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, SALARY FROM EMPLOYEES;
+
+
+first, we displayed all columns.
+now we display only 4 columns.
+	THIS IS CALLED AS "PROJECTION"
+			   ------------
+
+in RDBMS, what is Projection?
+	projecting only few attributes of the entity is called as "Projection"
+
+in select query, what is projection?
+	only few columns. 
+	only columns of choice.
+	only specific columns
+	instead of using * in select query, we use specific column names
+
+
+What is SELECTION?
+	----------
+There are 107 records found in EMPLOYEES table.
+	Instead of showing all the records, i want to show only few records.
+
+in interviews,
+	there are 100 Applicants.
+	so there are 100 rows found in the APPLICANTS table.
+	but whoever scores >80 marks should be displayed.
+
+	
+
+SELECT EMPLOYEE_ID, FIRST_NAME, UPPER(FIRST_NAME), LAST_NAME, SALARY 
+FROM HR.EMPLOYEES
+WHERE salary>10000;
+
+Here, we are not getting all 107 rows from EMPLOYEES table.
+We are getting only 15 rows.
+THis IS SELECTION
+	-----------
+
+
+Now you understand what is :
+PROJECTION
+SELECTION
+
