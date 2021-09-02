@@ -1,0 +1,1035 @@
+What is the difference between deterministic and non deterministic function
+
+Deterministic function:
+	when we call a function multiple times, it produces same result
+
+Non deterministic function:
+	every time it may not produce same result.
+		ex:	sysdate			produces different date but on different day
+
+	
+some functions:
+----------------
+	decode
+			DO YOU KNOW SWITCH-CASE IN C, C++, JAVA .....
+
+	SELECT DECODE(JOB_ID,'AC_MGR','Account Manager','AD_PRES','President', JOB_ID) FROM EMPLOYEES;
+
+The above query is almost equivalent to the below java code:
+
+	switch(job_id)
+	{
+		case "AC_MGR":
+			return "Account Manager";
+		case "AD_PRES":
+			return "President";
+		default:
+			return job_id;
+	}
+
+
+-----------------------------------
+COALESCE
+--------
+	This function is used to find the first not null value among the given options
+
+	SELECT COALESCE(PASSPORT, VOTERSID, ADHAR, PAN) FROM EMPLOYEES;
+		if passport is NOT NULL, then that is returned
+		else if voters id is not null, then it is returned
+		else if adhar is not null, then it is returned
+		else if pan is not null, then it is returned
+		else null is returned
+
+
+	this means, the functions DECODE, COALESCE	functions can have any number of arguments
+
+
+SELECT COMMISSION_PCT, COALESCE(COMMISSION_PCT, SALARY) FROM EMPLOYEES;
+
+
+------------------------------------------
+In Oracle SQL, there are NULL functions
+
+NVL
+NVL2
+NULLIF
+ISNULL
+
+
+NVL:
+-----							NVL(X,Y)
+	Display the bonus for each employee. 
+	Bonus is salary+(salary*commission_pct)
+	If commission_pct is null, then treat it as 0
+
+
+
+SELECT SALARY, COMMISSION_PCT, SALARY+(SALARY*COMMISSION_PCT) BONUS FROM EMPLOYEES;
+SELECT SALARY, COMMISSION_PCT, SALARY+(SALARY*NVL(COMMISSION_PCT,0)) BONUS FROM EMPLOYEES;
+
+So from above example, we understand NVL function translates NULL into given value (not necessarily always 0)
+
+NVL2:
+-----							NVL2(X,Y,Z)
+	If the first argument is NOT NULL, then do something. 
+	If the first argument is NULL, then also do something
+
+
+	nvl2(x,y,z)
+		if x is not null, then return y
+		if x is null, then return z
+
+
+--------------------------------
+in SELECT statement, we can use CASE also
+
+SELECT JOB_ID, CASE JOB_ID
+WHEN 'AC_MGR' THEN 'Account Manager'
+WHEN 'AD_PRES' THEN 'President'
+END CASE
+ FROM EMPLOYEES;
+
+
+
+
+SELECT JOB_ID, CASE JOB_ID
+WHEN 'AC_MGR' THEN 'Account Manager'
+WHEN 'AD_PRES' THEN 'President'
+ELSE 'NA'
+END CASE
+ FROM EMPLOYEES;
+
+
+
+
+
+SELECT substr('A123, Manhattan Condos, OMR, Chennai 603103',-6) FROM DUAL;
+
+============================================================================
+Java
+-----
+	1) install jdk 1.8
+	2) unzip eclipse/spring tool suite to a known folder
+	3) create a short cut for eclipse in desktop and task bar
+		drag the shortcut from desktop to task par. (pin to task bar)
+
+------------------------------------------------------------------------
+Overview of Java:
+	is compiled using Java compiler	"javac"
+	is executed using Java virutal machine using "java"
+
+
+
+A java program, atleast has 1 class.
+A class encloses 
+	variables		(or constants)
+	methods			(also called as functions in other languages)
+
+
+class is public so that this class can be accessed from any where.
+
+
+
+public class Example1
+{
+	public static void main(String args[])
+	{
+	}
+}
+
+
+
+This class has a method called "main"
+
+main is the first method executed when we run the program.
+
+main is not a method of my choice.
+
+It is defined in the java language
+
+public	-	this method can be accessed from outside the class 
+static	-	this method is static. So we do not need an object of the class to call this method.
+		we can call this method even without an object of the class
+		classname.staticmethodname
+		Example1.main			but we do not call it. Java runtime will call this method
+void	-	this method does not return a value
+main	-	is the name of the method
+String args[]
+	-	the main method accepts arguments
+			when we run the program
+			java Example1 hello world
+
+		here, "hello world" are stored in 	args[0]	and	args[1]
+
+
+To print an output in command prompt,
+		System.out.println("Hello world");
+
+Where do you save this file?
+		in a known location. 
+		the name of the file should be same as the public class name
+
+		there can be only one public class in a file. There can be non public classes in the file.	
+		but it is recommended to have every class in a separate file.
+
+
+
+after installing java in your pc,
+set env variable "path"
+	be very careful not to delete the existing path at all.
+
+
+
+in cmd prompt
+path=C:\Program Files\Java\jdk1.8.0_281\bin
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_281
+		
+
+Lets learn to create java programs in eclipse/ sts/ intellij
+
+1) open eclipse
+2) it asks to select a directory as workspace
+	choose the location where you want your projects are stored
+	you can type any location. or browse. 
+	if that location is not found, it will create.
+
+3) create a "java project"
+
+---------------------------
+if
+if else
+if else if else
+
+switch case
+
+while loop
+
+do while loop
+
+for loop
+
+for each loop
+
+			these are the programming constructs
+
+		int marks=40;
+		if(marks>50)
+		{
+			System.out.println("Pass");
+		}
+		else
+		{
+			System.out.println("Fail");
+		}
+
+
+
+
+
+
+		int marks=91;
+		if(marks>90)
+		{
+			System.out.println("Excellent");
+		}
+		else if(marks>80)
+		{
+			System.out.println("Good");
+		}
+		else if(marks>60)
+		{
+			System.out.println("Fair");
+		}
+		else if(marks>50)
+		{
+			System.out.println("Pass");
+		}
+		else
+		{
+			System.out.println("Fail");
+		}
+		
+
+
+
+
+		String job="ST_CL";
+		switch(job)
+		{
+		case "AD_VP":
+			System.out.println("President");
+			break;
+		case "ST_CL":
+			System.out.println("Steno clerk");
+			break;
+		default:
+			System.out.println("Employee");
+			break;
+		}
+
+
+
+if break is not used in case?
+	then remaining cases are also executed.
+
+shortcut:	syso ctrl+space			or		sout ctrl+space
+
+
+
+
+		int i=10;
+		while(i<20)
+		{
+			System.out.println(i);
+			i++;
+		}
+
+
+
+
+		int i=10;
+		do
+		{
+			System.out.println(i);
+			i++;
+		}while(i<20);
+
+
+
+
+break
+	exits the loop
+	EVEN if there are lot of lines below break, inside the loop, 
+	break will exit the loop. continues after the loop.
+
+continue
+	moves to next iteration of the loop
+	current loop iteration is skipped. 
+	below, the continue statement if there are some lines inside the loop, they are ignored
+	moves to next iteration
+
+
+
+Arrays
+------
+	in c, c++ syntax of array is different
+	but in java array syntax is different
+
+int arr[10];				// in c, c++
+int arr[]=new int[10];			// in java
+
+
+int arr[];			//this is declaration of array in java
+arr=new int[10];		//this is sizing
+
+we can combine both as:
+	int arr[]=new int[10];			//in one line
+
+also we can create array with values.
+
+	int arr[]={55,100,34,21,46,89,74,20};
+
+		in this case, the size of the array is known by the number of values assigned.
+
+		arr.length 		gives 8			that is the size of the array
+
+	System.out.println(Arrays.toString(arr));		//prints all elements of the array
+
+using for-each loop, we can print all elements of the array
+
+
+
+		int arr[]={55,100,34,21,46,89,74,20};
+		
+		for(int x:arr)
+		{
+			System.out.println(x);
+		}
+
+
+	in this for each loop, "x" is a variable that cannot be used before and after the for each loop. It must be declared in the for each loop only
+
+	for each loop can be used in arrays or collections
+
+
+
+Primitives and Objects
+
+In java language there are only 8 primitive data types
+
+boolean		1 bit			true/false
+byte		1 byte
+short		2 bytes
+int		4 bytes
+long		8 bytes
+float		4 bytes
+double		8 bytes
+char		2 bytes
+
+
+There are 8 wrapper classes also:
+Boolean
+Byte
+Short
+Integer
+Long
+Float
+Double
+Character
+
+
+all methods related to the 8 primitives are present in corresponding wrapper classes. Because, primitives are value types. They only hold the value. No methods inside primitives.
+
+Integer.parseInt
+Integer.MAX_VAL		the maximum possible value in an int
+Character.isDigit
+Character.isLetter
+
+
+
+
+in java, only these 8 data types are called as data types.
+
+All others are "types". 		not datatypes
+
+
+String
+Date
+	and many many classes are there in java.lang
+	they are derived from Object class
+	so the variables of these types are called as objects
+
+
+int i;			//we dont call i as object. we call i as a variable
+
+String s;		//s is an object of String class. 
+
+Date d;			//d is a reference variable of Date class.		d is not an object now.
+Date d1=new Date();	//d1 is an object of Date class
+d=d1;			//d is now an object. But not a new object. it is same object as d1. Both are in same memory
+
+
+
+8 primitive data types are there.
+variables of these data types are called a value types.
+
+because, they contain only value inside. they do not have member functions/methods inside
+
+String str="hello";
+System.out.println(str.length());		//prints the length ie., 		5
+
+str is an object so it has value and methods
+
+int i=0;
+	
+
+i has only value, but no methods inside i
+
+
+display all the vowel present in a string???????
+find only pass marks from an array????????
+
+
+-----------------------
+How to get input from command prompt?
+	java versions 	1.1, 1.2, 1.3, 1.4
+		we got input from user using 
+			BufferedReader		char
+			BufferedInputStream	binary
+
+	java versions from java 5 onwards		(jdk 1.5, 1.6.........)
+		we use Scanner to get input from user in command prompt
+
+what are the methods used in Scanner?
+	ClassName space objectname = new constructorname();
+
+	Scanner sc=new Scanner(System.in);
+
+nextInt()
+nextLine()
+nextFloat()
+next()
+
+
+1) if we need to get input from the user till "ENTER" key is pressed. ie., entire line as input as a String
+	sc.nextLine();
+2) in all other situations, we do not use sc.nextLine();
+
+input is:
+	2 rama 15.5
+
+how to capture entire line?
+	sc.nextLine();
+
+how to capture only "2"
+	sc.nextInt();
+how to capture the next input ie., "rama"
+	sc.next();
+how to capture next input ie., 15.5
+	sc.nextFloat()			or 		sc.nextDouble()
+
+if you want to read rama, but you used sc.nextLine(), it would have troubled you because,
+	nextLine() will read till the end. 
+also, the pervious input was nextInt(). so the spa5ce or any delimiter will go and sit in nextLine();
+	solution is
+		whenever sc.nextLine() comes after sc.next() or anything that takes delimiter other than \n
+	check if the sc.nextLine() returns blank 		""
+
+
+
+
+
+
+user input will be each in a separate line
+
+1
+rama
+95.9
+
+take these inputs into 
+	int
+	String
+	float
+
+
+
+
+
+Solution1:
+		int sno;
+		String name;
+		float marks;
+		
+		Scanner sc=new Scanner(System.in);
+		Scanner sc1=new Scanner(System.in);		//different scanner for nextLine() alone
+		sno=sc.nextInt();		
+		name=sc1.nextLine();
+		
+		marks=sc.nextFloat();
+		
+		System.out.println(sno);
+		System.out.println(name);
+		System.out.println(marks);
+
+
+
+
+
+Solution 2:
+				int sno;
+		String name;
+		float marks;
+		
+		Scanner sc=new Scanner(System.in);
+		
+		sno=sc.nextInt();		
+		name=sc.nextLine();
+		if(name.equals(""))
+			name=sc.nextLine();
+		marks=sc.nextFloat();
+		
+		System.out.println(sno);
+		System.out.println(name);
+		System.out.println(marks);
+
+
+
+
+
+55,10,90,45,11,222,88,97
+
+how to find the largest of the elements in an array
+
+create a variable called 
+	int largest=arr[0];
+
+loop
+	for(int i=0;i<arr.length;i++)
+	{
+		if(arr[i]>=largest)
+		{
+			largest=arr[i];
+		}
+	}
+
+at the end of this loop,
+	largest variable has the output
+
+
+
+
+
+
+
+How to get a char input using scanner?
+	there is not nextChar method
+
+so get the string as input and get the first character using charAt(0)
+
+next() method returns 1 word
+next().charAt(0)		returns first character.		there is only 1 character. so it is fine
+
+---------------------------------------------------
+
+Last Character
+
+Rahul was tired after studying for so long , so he thought to play a small game with the words from his book . He opens a random page and selects a random word from it , and also  chooses the last digit of that page number n . Given an array of characters,Write a program to help Rahul find the last character that occurs n(last digit of the page number) times in the array . If no such character exists,then print -1.
+
+Input Format:
+First input is an integer that denotes the size of the array.
+Second line consists of  series of characters  seperated by a space that denotes the array values.
+Third input is an integer that denotes the n value.
+
+Output Format:
+Output is a character that denotes the last character which occurs n times.
+
+Sample Input 1:
+8
+a a b c n s d n
+2
+
+Sample Output 1:
+n
+
+Explanation:
+    In the given array 'a' and 'n' occurs 2 times which is equal to the n value . Even though 'a' occurs twice ,'n' is the one that occurs last.    
+    
+Sample Input 2:
+5
+a b c d e
+3
+
+Sample Output 2:
+-1 
+
+
+
+
+
+import java.util.Scanner;
+
+public class LastCharacter {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int noOfElements=sc.nextInt();
+		char []arr=new char[noOfElements];			//in java we can do this		
+		
+		for(int i=0;i<noOfElements;i++)
+		{
+			arr[i]=sc.next().charAt(0);
+		}
+		char result='\0';
+		int n;
+		n=sc.nextInt();
+		
+		for(int i=0;i<noOfElements;i++)
+		{
+			int count=0;			//reset to 0 for each character to begin with
+			for(int j=0;j<noOfElements;j++)
+			{
+				if(arr[i]==arr[j])
+				{
+					count++;
+				}
+			}
+			//check the count if it is equal to n
+			if(count==n)
+			{
+				result=arr[i];
+			}
+		}
+		if(result=='\0')
+			System.out.println(-1);
+		else
+			System.out.println(result);
+	}
+
+}
+
+============================================
+Object Oriented Programming
+
+class University
+{
+	String name;
+	List<College> collegeList;
+}
+
+
+university has colleges
+
+
+Composition 	- when a class has object of another class. the inner class cannot exist independantly
+Aggregation	- both class can exist independantly. But there is a part of or has relationship
+
+
+Customer
+	List<Product>				
+
+				products can exist independantly. when customer purchase, then aggregation happens
+
+
+Inheritance
+	A class is a kind of another class
+
+
+ContractEmployee is a kind of Employee
+
+JavaStudent is a kind of Student
+
+
+OLX website
+-----------
+when i sign up for OLX website, I am just an user.
+
+
+class Consumer
+{
+	username
+	password
+	firstName
+	lastName
+	address
+	phone
+	email
+}
+
+
+class Buyer extends Consumer
+{
+}
+
+
+class Seller extends Consumer
+{}
+
+
+OLX offers services
+	buying
+	selling
+
+Both Buyer and Seller consumes the OLX website service
+so it is C to C portal	
+
+
+inheritance
+-----------
+
+Employee
+	just joined the company. Today, he is not even provided a role.
+
+Programmer
+
+Developer
+
+Project Manger
+
+
+Employee ramesh=new Employee();
+ramesh=new Programmer();
+ramesh=new Developer();
+
+
+in his journey / career, he is undergoing lot of transition.
+
+All because, of inheritance
+
+Programmer extends Employee
+
+
+
+Inheritance allows creating new classes from existing classes, without have to create from the scratch.
+
+
+Implementation
+
+interface
+	declares the methods that must be implemented by the impl classes
+
+in java 8
+	interfaces can have
+		abstract methods		(no need to mention abstract)
+		default methods			(can have body)		provides default implementation. can be 										overridden
+		static methods			(can have body)		InterfaceName.staticMethodName()
+
+
+
+every java class shall be in a File
+every package is in a folder/directory
+
+
+
+
+public
+private
+protected
+(default)		no access specified means it is default scope
+	default scope is inside the current package.
+
+
+int age;
+int marks;
+	thse are default scope. They are available within the same package
+
+
+protected:
+	members are available within same package and also from sub class (from any package)
+		=	default + sub classess of any package
+
+private:
+	only within the same class
+
+public:
+	anywhere it is accessible
+
+you can use thse access specifiers for 
+	variables
+	methods
+
+IDE
+	automatically compiles the programs when we save the program.
+	compilation errors are found as red underlines
+
+	
+in java, multi-dimensional array can be jagged array
+
+int arr[][]=new int[10][];
+		arr[0]=new int[10];
+		arr[1]=new int[5];
+		arr[2]=new int[15];
+	
+
+
+------------------------------
+package com.cts.hrms;
+
+public class Employee {
+	public static void main(String[] args) {
+		int arr[][]= {
+				{11,22,33,44},
+				{100,200},
+				{8,9,10,11,12},
+				{500,501,502,503,504,505}
+		};
+		
+		//how to loop all these values???
+		for(int i=0;i<arr.length;i++)		//arr.length is no of rows
+		{
+			for(int j=0;j<arr[i].length;j++)	//arr[i].length is no of cols
+			{
+				System.out.print(arr[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+}
+
+------------------------------
+Arrays
+Programming constructs
+Loops
+Input using scanner
+
+
+
+
+---------------------------------------------
+What are the limitations of array?
+so that we need collections
+
+array size should be known while creating array.
+array size cannot be changed later.
+array needs contigous memory locations.
+
+
+we need collections that can grow or shrink as required.
+when creating a collection we may not know the size required.
+
+collections can grow or shrink dynamically during the course of execution of program
+
+Arrays are fixed length. 
+
+LinkedList is an example for collection
+
+in old versions of java
+	Vector
+	Hashtable
+
+These above 2 classes are legacy classes. They are synchronized. Means, multiple threads cannot access at a time
+
+
+
+In modern collections ie., from java version 5 onwards,
+
+List
+	ArrayList
+	LinkedList
+Set
+	HashSet
+	TreeSet
+	LinkedHashSet
+Map
+	HashMap
+	TreeMap
+	LinkedHashMap
+
+These classes are very important.
+
+Map is not a collection. But is an application of collection
+
+
+List and Set are the type types of collections
+
+Stack
+Queue
+	these are legacy classes. still we can use any legacy class
+
+
+All these collections are reference type. 
+	int is not allowed. Integer is allowed
+		ArrayList<Integer>		is correct
+		ArrayList<int>			is not possible
+
+ArrayList
+	it is an array. That can grow or shrink
+	means, it has index.
+
+	
+Wrapper classes are scalar types. Means they hold only 1 value.
+
+Character		means only 1 character
+Integer			one number
+
+all wrappers are scalar. 
+
+ArrayList marks=new ArrayList();			//java version 1 to 4
+ArrayList<Integer> marks=new ArrayList<Integer>();	//java version 5 and 6
+ArrayList<Integer> marks=new ArrayList<>();		//java version 7 or later
+		
+till java version 1.4 or earlier, 
+	all collection were Object type.
+	since Object is the super class for all other classes
+	You were allowed to store any type of object in a collection. It does not mean it is heterogenous. 
+	They are cast to Object type. so all the elements of that collection was Object type only. Homogenous
+
+
+
+What is boxing?
+	primitives are converted into Objects		that is boxing
+
+
+int i;		//is primitive
+
+class Integer
+{
+	int i;
+}
+
+
+here, i is inside a box
+
+Integer marks=i;				//i is primitive, marks is object. i is put inside a box
+	//this is called boxing
+
+int i=marks;			this is unboxing		this is automatic in java new version
+				before 1.5 boxing and unboxing were not automatic
+
+
+Integer marks=20;		//was not allowed in old versions
+Integer marks=new Integer(20);	//old versions
+
+i=marks;
+i=marks.intValue();		//old versions
+
+
+
+
+		ArrayList<Integer> marks=new ArrayList<Integer>();
+		marks.add(100);	//expecting an Integer. we gave an int. it was auto boxed
+		marks.add(50);
+		marks.add(44);
+		marks.add(88);
+		marks.add(34);
+		marks.add(83);
+		marks.add(19);
+		
+		System.out.println(marks);
+
+Legacy class "Vector" has index
+	we can compare Vector with ArrayList
+		Vector is sync
+Legacy class Hashtable		is "key-value" pair
+		HashMap		is also "key-value" pair
+	we can compare Hashtable with HashMap
+		Hashtable is sync
+List:
+	The collections that come under List category are classes that implements the interface called "List"
+	ArrayList			has index
+	LinkedList			has no index. cannot access an element directly
+	
+	these classes are implementation of List interface
+		List is an ordered collection
+			means?	it remembers the order in which we added elements
+
+		List allows duplicates
+		add()			remove()
+Set:
+		Set does not allow duplicates. 	It rejects duplicates.
+		Set does not maintain the order of elements (But LinkedHashSet maintains the order)
+
+	HashSet
+		the order of elements is decided by the hashCode() method
+	TreeSet
+		the order of elements is sorted	based on Comparable or Comparator
+	LinkedHashSet
+		the order in which the elements are added
+
+Map:
+		every map class is "key-value" pair
+		the key is a Set			that means, every key must be unique
+						one of the key can be null. another key is null means it is duplicate
+		value can be anything.		null or duplicate or any number of null is allowed in value
+	HashMap
+	TreeMap
+	LinkedHashMap
+
+in map,
+	put		to add an entry			entry=key,value
+	get		to get value based on key
+
+
+
+
+ArrayList<Employee>
+
+
+
+
+
+HashSet<Integer> marks=new HashSet<>();
+		marks.add(100);	
+		marks.add(50);
+		marks.add(0);
+		marks.add(50);		//duplicate
+		marks.add(88);
+		marks.add(34);
+		marks.add(83);
+		marks.add(50);		//duplicate
+		marks.add(19);
+		
+		System.out.println(marks);
+
+
+		TreeSet<Integer> marks=new TreeSet<>();
+		marks.add(100);	//expecting an Integer. we gave an int. it was auto boxed
+		marks.add(50);
+		marks.add(0);
+		marks.add(50);
+		marks.add(88);
+		marks.add(34);
+		marks.add(83);
+		marks.add(50);
+		marks.add(19);
+		
+		System.out.println(marks);
