@@ -1033,3 +1033,177 @@ HashSet<Integer> marks=new HashSet<>();
 		marks.add(19);
 		
 		System.out.println(marks);
+
+
+
+
+--------------------------------------------------------------------
+List
+How to add list of employees?
+
+Display all  employees
+sort employees based on criteria
+
+
+
+To sort an array,
+	Arrays.sort(arr);
+
+To sort a list,
+	Collections.sort(x);
+
+Collections.sort method works only for List category of collections. Does not work for Set category.
+
+List<Integer>
+List<Date>
+List<String>
+	all these collections can be sorted using Collections.sort() method
+
+But
+	ArrayList<Employee>			????		can we sort this collection????
+		Until, Employee class implements Comparable, it is not going to work
+
+
+If we cannot compare 2 elements, then how can we sort them?????
+
+sort countries?????
+	alphabetical order? then fine
+	length wise?? then also fine
+
+how to compare the elements of a List???
+	
+
+
+package com.cts.hrms.model;
+
+public class Employee {
+	private Integer id;
+	private String firstName;
+	private String lastName;
+	private Double salary;
+	
+	public Employee() 
+	{
+		
+	}
+
+	public Employee(Integer id, String firstName, String lastName, Double salary) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", salary=" + salary
+				+ "]";
+	}
+	
+	
+}
+
+
+how comparison happen?
+
+1 vs 2				1-2			and i get negative result means, first one is smaller
+
+2 vs 1				2-1			and i get positive result, first one is larger than second
+
+
+
+a-b			is asc order
+b-a			is desc order
+
+
+
+Task:
+------
+you need to sort the employeeList by 
+	firstName asc, lastName desc
+
+
+
+i was thinking an excel sheet
+
+State	City
+TN
+TN
+KA
+KA
+TN
+KA
+TN
+
+
+first column is same means, then only the city is sorted
+
+TN	
+TN
+TN
+TN
+
+
+
+
+
+HashSet
+-------
+	hashCode()
+	equals()
+
+
+these 2 methods help a HashSet to
+	maintain the order		hashCode()
+	eliminate duplicates		equals()
+
+
+HashSet rejects the duplicate.		DOES NOT UPDATE.		(Map will update if duplicate key is found)
+
+
+
+Why comparator is required?
+1) A class can implement Comparable once, so for different and different way of sorting, we need external comparator
+2) Sometimes, we do not have access to modify the source code of a class. For example, 
+	ArrayList<Integer>
+	TreeSet<Integer>
+
+	how can we sort integer in descending order.
+
+	class Integer implements Comparable<Integer>			is already done in java. we cannot modify
+
+So we use comparator to manipulate Integer
+
