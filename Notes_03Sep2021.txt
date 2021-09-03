@@ -1,0 +1,768 @@
+Abstract class
+--------------
+
+class Triangle
+{
+	float breadth;
+	float height;
+	public float calculateArea()
+	{
+		return 0.5f * breadth * height;
+	}
+}
+
+class Rectangle
+{
+	float length;
+	float breadth;
+	public float calculateArea()
+	{
+		return length * breadth;	
+	}
+}
+
+class Circle
+{
+	float radius;
+	public float calculateArea()
+	{
+		return 22/7 * radius * radius;
+	}
+}
+
+in our program, we give choice:
+	User can choose the type of shape.
+	then inputs are obtained and output is the area
+
+How can we declare a variable (triangle / rectangle /circle)
+
+So, we need a super class for these shapes.
+
+class Shape
+{
+}
+
+class Triangle extends Shape
+{
+	float breadth;
+	float height;
+	public float calculateArea()
+	{
+		return 0.5f * breadth * height;
+	}
+}
+
+class Rectangle extends Shape
+{
+	float length;
+	float breadth;
+	public float calculateArea()
+	{
+		return length * breadth;	
+	}
+}
+
+class Circle extends Shape
+{
+	float radius;
+	public float calculateArea()
+	{
+		return 22/7 * radius * radius;
+	}
+}
+
+
+main:
+
+Shape s=new Shape();
+if user choses Triangle then
+
+s=new Triangle();			//dynamic polymorphism
+
+if user chose Rectangle then
+
+s=new Rectangle();			//late binding
+
+
+means, dynamic polymorphism allows us to declare a reference variable of "super" class type.
+and later allocate it to "sub" class type.
+
+When you do dynamic polymorphism, we declare super class type variable. So even if we allocate it to sub class type, the methods that are declared in the super class type are only available for the variable.
+
+super class "Shape" does not have any method.
+So, 
+	s=new Triangle();
+
+now "s" does not have any method. Even if Triangle class has "calculateArea"
+
+To solve this problem,
+and to make "calculateArea" method available in "s" variable, 
+i am going to declare "calculateArea" method in Shape class itself.
+
+
+
+It does not make sense.
+
+Triangle has a formula for calculateArea
+Rectangle 	--do--
+Circle		--do--
+
+But what can be the formula for Shape????????
+
+Shape is abstract
+	means, unclear.
+	cannot visualize
+	means incomplete details
+
+and the formula for calculateArea is also abstract		means not clear. 	no idea
+
+so the calculateArea method is declared as abstract.
+Only abstract classes can have abstract method. Normal concrete classes cannot have abstract method.
+
+so the Shape class is now declared as abstract
+
+public abstract class Shape
+{
+
+	public abstract float calculateArea();
+}
+
+
+	Shape s=new Shape();			//Error
+
+I cannot create an object of abstract class.
+But i can declare a ref variable for abstract class.
+
+	Shape s;
+
+
+
+1) abstract class can contain abstract methods and also methods with body.
+2) abstract class cannot be instantiated. means, object cannot be created for abstract class
+3) ref var of abstract class can be created
+4) a class that extends abstract class must override all the abstract methods of the super class. 
+	Otherwise, the sub class also becomes abstract.		we should declare the sub class also as abstract
+5) abstract class is meant to be a super class
+
+-----------------------------------------------------
+Hands on:
+---------
+1) class:	Furniture
+	variables:	name, color				both are String
+	methods:	acceptDetails()		displayDetails()
+
+	acceptDetails should get input from the user for "name" and "color"
+	displayDetails should display the "name" and "color"
+
+2) class:	Chair
+	this class should inherit Furniture class
+	variables:	noOfLegs				int
+	
+	override the acceptDetails() and displayDetails()
+
+3) class:	BookShelf
+	this class should inherit Furniture class
+	variables:	noOfShelves				int
+	
+	override the acceptDetails() and displayDetails()
+
+
+
+1: Chair
+2: BookSelf
+3: Exit
+
+
+
+
+Interface:
+----------
+
+interface ThreeMmJack
+{	
+	void playMusic();
+}
+
+interface TypeC
+{
+	void charge();
+}
+
+class RedmiK20 implements ThreeMmJack, TypeC
+{
+	void playMusic()
+	{
+		System.out.println("Playing music");
+	}
+	void charge()
+	{
+		System.out.println("Charging");
+	}
+}
+
+
+
+
+
+i have implemented multiple interfaces
+
+class Speaker
+{
+	void playSound(ThreeMmJack j)		pass object of RedmiK20 here, because, it implements ThreeMmJack
+	{
+		
+	}
+}
+
+
+
+Interface provides highest level of abstraction.
+
+In java versions before 8
+	jdk 1.1 to 1.7
+		interfaces never had methods with body.
+		now interfaces can have 
+			default methods with body
+			static methods with body
+
+
+interface can have only public members			no private, no protected, no default
+
+interface Person
+{
+	void speak();	//this is public only. we do not require to mention abstract and public in interface
+}
+
+class Student implements Person
+{
+	public void speak()		//mistake is here if public is missing. 	it is public in interface.
+	{
+		System.out.println("Student speaks");
+	}
+}
+
+Overriding method cannot be less accessible
+cannot reduce the visibility of the overriding method
+
+
+interface Person
+{
+	int age;
+}
+
+the above is wrong.....
+
+interface Person
+{
+	int age=20;
+}
+
+the above is correct.....
+
+every data member  in an interface is 
+	public static final
+
+even  if we do not specify that also, it is 		public static final				only
+
+final means, constant
+so ideally, it should be in full capital letter
+so the correct version should be
+
+interface Person
+{	
+	int AGE=20;
+}
+
+this is similar to
+
+interface Person
+{
+	public static final int AGE=20;				//in java, constants are FULL CAPITAL
+}
+
+
+
+-----------------------------------
+an interface can extend another interface
+
+inheritance between 2 interfaces
+
+class extends interface IS NOT POSSIBLE
+
+When a class implements an interface,
+	that class should override the abstract methods declared in the interface, and also the abstract methods 		present in the super interface 
+
+interface One
+{
+	void method1();
+}
+
+interface Two extends One
+{
+	void method2();
+}
+
+class A implements Two
+{
+	public void method1()
+	{}
+	
+	pubic void method2()
+	{}	
+}
+
+//both the methods present in the interface and its super interface must be implemented by the class
+
+Relationships
+--------------
+
+A has B
+B is a part of A
+		both are same only
+
+
+class A
+{
+	B b;
+}
+
+
+When we create an object of a class, there is 
+	is-a 
+		relationship between object and class
+
+Student rama=new Student();
+
+	//rama is a Student
+
+class Student extends Person
+{}
+
+	//rama is a Students		means, 		
+	//rama is a Person		also
+
+object of a class will have "is-a" relationship with all the super classes
+
+Interfaces also provide 
+	late binding
+	dynamic polymorphism
+
+interface Person
+class Student implements Person
+class Teacher implement Person
+
+Person rama;			//we can declare a ref variable for Person. We cannot create object of interface
+rama=new Student();
+rama=new Teacher();
+
+	rama is a ref var of interface Person.			so it can be assigned to any object of a class that 		implements Person interface
+
+
+
+int:
+----
+	String str="123";
+	int i=Integer.parseInt(str);
+
+numeric types like float, double, long, byte		can be cast to int		(why conversion?????)
+
+	float f=12.2f;
+	int i=(int) f;			//cast
+
+same category of data types, we can do casting		NOT CONVERSION
+
+String vs int		cannot do casting.		DO conversion
+
+int to String:
+-------------
+	int i=123;
+	String str=String.valueOf(i);				//converts int to String
+
+	int i=123;
+	String str=i+"";				//anything + String		results to String only
+
+
+Integer.parseInt
+Float.parseFloat
+Double.parseDouble
+Boolean.parseBoolean
+
+in java language, 
+	0 is not false
+	1 is not true
+
+	boolean isSelected=0;		//ERROR
+	
+	int i=0;
+	if(i)		//NOT POSSIBLE IN JAVA		this is not a boolean expression
+
+	boolean j=false;
+	if(j)		//IS POSSIBLE			because we get true / false 		in j
+
+	
+
+----------------------------------------------
+Exception:
+----------
+what is exception?
+	is something that occur during the execution of program, 
+	the program terminates abruptly, if the exception is not handled
+	
+In java, for every exception you see, it is defined as a class.
+example for exception classes:
+-------------------------------
+	ArrayIndexOutOfBoundsException
+	InputMismatchException
+	ArithmeticException
+	IOException
+	DivisionByZeroException
+	NullPointerException
+	FileNotFoundException
+	InterruptedException
+	Exception
+	RuntimeException
+	OutOfMemoryException
+
+now, we can categorize these exceptions into
+	checked 
+	unchecked
+
+Checked Exceptions
+	are checked by the compiler
+	if they are not handled using try-catch blocks, 
+	then they must be declared using "throws" in the method level
+	Any class that inherits Exception, is a checked exception	(directly inherits or its sub class)
+
+Unchecked Exceptions
+	are not checked by the compiler
+	they are known at the runtime only
+	Any class that inherits RuntimeException, is an unchecked exception
+
+
+
+
+public class App2 {
+
+	public static void display()
+	{
+		int i=20;
+		int j=0;
+		
+		System.out.println("No issues: "+(i/j));
+	}
+	public static void main(String[] args) {
+		display();
+	}
+
+}
+
+
+The above program does not have any compilation error.
+
+When i run this program:
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at App2.display(App2.java:9)
+	at App2.main(App2.java:12)
+
+So this implies, that
+	ArithmeticException is unchecked exception that is known at runtime
+
+
+FileNotFoundException is checked exception. So it is found during compilation. 
+	I cannot run this program, until i chose to 
+		i) handle this exception (or)
+		ii) declare with "throws"
+
+
+
+	public static void display2() throws FileNotFoundException
+	{
+		FileInputStream fis=new FileInputStream("");
+	}
+
+
+"throws" informs the compiler that this method throws this exception but does not handle it.
+the calling method should.
+
+
+
+calling method can use 
+	try-catch
+
+-------------------------------------------------
+Exception Handling:
+-------------------
+try block
+	is the guarded section that will be capable of handling the exceptions that occur inside try block
+catch block
+	catch block cannot be present without try block
+	catch block is executed when such exception occurred.
+	catch(FileNotFoundException e)
+	{}
+
+	there can be any number of catch blocks for a try
+		0 or more catch blocks for a try block
+	the order of catch blocks should be in such a way, sub class then super class
+
+
+
+Hierarchy of Exception classes:
+
+Object					//is the super class for any class
+Throwable
+Exception
+
+
+
+finally block
+	try block can be followed by 
+		catch or finally or both
+
+
+try
+{
+}
+finally
+{
+}
+
+	in this case, the "try" block do not have a catch block
+
+try
+{
+}
+catch()
+{
+}
+finally{
+}
+
+
+try
+{
+}catch(){
+}
+catch(){
+}
+finally
+{
+}
+
+
+why do we need finally?
+	when exception occurs in try block, it jumps to catch block, leaving some lines in try block unexecuted
+	when no exception occurs in try block, it never go to catch block.
+
+	in both situations, some lines are not executed.
+
+	so if we need some lines to be executed no matter exception occured or not, "finally" block is used...
+
+
+There can be 0 or 1 finally block present for a try block
+
+Nesting
+--------
+	inside try block
+	or inside catch block
+		another try-catch can be present
+
+	this is called nested exception handling
+
+	if inner block does not find an appropriate catch, then it will look for a catch in outer try
+
+-------------------------------------------
+String
+------
+	is a peculiar class in java.
+	see how we create string variables?
+
+	String str="hello world";		//how is this possible?
+	String str=new String("hello world");	//this is fine. But how about previous line???????
+
+	that means
+		LHS=RHS
+
+	"hello world"		itself is an object of String
+
+
+value 
+reference
+
+int i=20;			//20 is a value
+Employee rama=new Employee()	//rama does not have value. rama has a reference to an object of Employee
+
+in c they are pointers they hold reference and not the value
+
+"hello world" is not a value. it is a reference to an object. It is an object
+
+String str="hello";
+String str2="hello";
+
+i say, both str and str2 are refering to same memory location
+
+"hello" is the object in memory
+
+both str and str2 are pointing to same memory location
+
+
+== operator compares the values if the operands are value type
+== operator compares the references if the operands are reference type
+
+String is always a reference type.		It is not primitive / value type
+
+so we get true means, 
+str1 and str2 were referring to same memory location
+
+if we get false means,
+str1 and str2 were referring to different memory locations
+
+		String str1=new String("hello");
+		String str2=new String("hello");
+		System.out.println(str1==str2); 		//what is the output?
+
+
+new operator always allocate new memory location only
+
+		String str1=new String("hello");
+		String str2=new String("hello");
+		System.out.println(str1==str2); 		//what is the output?
+
+Now, i want to get "true" here, because, both the variable have same value.
+how to compare two strings based on value and not by reference
+
+		String str1=new String("hello");
+		String str2=new String("hello");
+//		System.out.println(str1==str2); 		//what is the output?
+		System.out.println(str1.equals(str2));
+
+whenever you compare 2 strings, use equals() method instead of ==
+
+use == to compare 2 value types. ie., primitive types
+
+int i=20;
+int j=20;
+
+sout		i==j			//correct
+
+i.equals(j);			is not possible because, primitives do not have any member functions inside
+
+-------------
+String is immutable.
+
+		String str1="hello";
+		System.out.println(str1);
+		str1="world";
+		System.out.println(str1);
+		
+
+here, we are not changing the value of a variable. 
+we are changing the reference of the variable
+
+because,
+
+	"hello"	 is not a value. it is itself an object of String
+	"world"	--do--
+
+
+StringBuilder
+StringBuffer
+
+these classes are used to edit the contents of a string, rather than changing entire string or reference
+same memory location, only content be changed
+
+the only difference between StringBuilder and StringBuffer is
+that
+	StringBuffer is synchronized. Means, when multiple threads access a string buffer, only they are allowed as 		one by one. One thread at a time. Other threads are made wait. That is synchronization
+
+StringBuilder does not enforce any "lock" on threads, so it is fast
+
+Both these classes, have same set of variable and methods.
+if you  learn StringBuilder, you have also learnt string buffer
+
+
+		StringBuilder sb=new StringBuilder();
+		sb.append("Hello");
+		sb.append(" ");
+		sb.append("world");
+		System.out.println(sb);
+
+to assign a value, we use append. Append will not overwrite the existing text. it append at the end of the text.
+in System.out.println,
+	sb.toString() is called
+
+//		String str=sb;	//not possible
+		String str=sb.toString();		//possible
+
+
+to extract the String inside the strin gbuilder 		use 	toString() method
+
+Task:
+------
+	Accept a string input from user.
+	Display the reverse of the String.
+
+		String str="education";
+		StringBuilder sb=new StringBuilder(str);
+		str=sb.reverse().toString();
+		System.out.println(str);
+
+
+String itself is useful for regular expression.
+
+1) input string contains, like an sms. 
+	Kindly note down the builder's contact number 9898989898. Contact him on this number or 7473727187.
+
+	How will you extract only the numbers from this string?
+
+
+		String str="Kindly note down the builder's contact number 9898989898. Contact him on this number or 7473727187.";
+//		for(int i=0;i<str.length();i++)	//for as many characters in the string
+//		{
+//			char c = str.charAt(i);
+//			if(Character.isDigit(c))
+//				System.out.print(c);
+//			else
+//				System.out.println();
+//		}
+		
+//		str.matches("[0-9]+");	///this is to check if string matches the pattern or not
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(str);
+		while(m.find())
+		{
+			System.out.println(m.group());
+		}
+		
+
+Suppose, if input is a sentence, can you count how many words are there in that sentence?
+String has split method
+	but split method accepts regular expression.
+
+		String str="This is a sentence that you need to count the number of words";
+		String[] arr = str.split(" ");
+		System.out.println(arr.length);
+
+
+
+input string is
+	192.178.1.14
+
+this is an ip address, but actually a string
+
+split this string by .
+	remember . is a regular expression that means anything
+
+here, . is a regex symbol
+
+------------------
+StringTokenizer is also used to split a string 
+	here, 	. is a character
+
+		String str="172.168.1.14";
+		StringTokenizer st=new StringTokenizer(str,".");
+		while(st.hasMoreTokens())
+		{
+			System.out.println(st.nextToken());
+		}
+
+
