@@ -1,0 +1,27 @@
+Oracle - SQL Functions Classification
+» Deterministic and Nondeterministic functions
+» Aggregate Functions and Scalar Functions
+» String Functions, Mathematical Functions
+» Miscellaneous Functions (COALESCE & NULLIF)
+Nesting of Functions & SQL Expression
+Estimated Time Duration for this Topic  
+
+Group By Clause
+Having Clause
+Order By Clause
+Order of Execution of Clauses in SELECT Statement
+Estimated Time Duration for this Topic  
+
+JOIN & JOIN Style
+Theta Style 
+Oracle Style : JOIN ... ON & JOIN ... USING
+CROSS JOIN
+INNER JOIN
+EQUI-JOIN
+NATURAL JOIN
+OUTER JOIN
+LEFT OUTER JOIN
+RIGHT OUTER JOIN
+FULL OUTER JOIN
+SELF JOIN
+Case study 
