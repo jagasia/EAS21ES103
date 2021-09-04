@@ -1,0 +1,213 @@
+2) Learn java new topics
+3) Hands on java topics
+1) Oracle exam preparation
+
+Collections:
+----------------
+ArrayList
+LinkedList
+	does not have index
+	so we have to loop from first to last (if we need to find an element)
+		but 		contains() method can be used to check if the list contains an element or not
+
+	LinkedList<Integer> marks
+		31,23,33,34,53
+
+	marks.contains(34);		//returns true		(Every collection has a "contains()" method)
+
+	marks.contains(50);		//returns false
+
+	LinkedList<Employee> empList
+
+	empList.contains(x);						x is an object of Employee
+		//how will this empList identify that the object x is present in the list or not?
+
+		for that, Employee class should have "equals()" method.
+	so that x is an object, which will be compared with all objects for "equality" and return true if found
+
+	if you do not have "equals" method in Employee class, then contains method will not work,
+	you have to loop the collection to find an object
+
+-----------------------
+HashSet
+TreeSet
+LinkedHashSet
+----------------------
+Set do not support Collections.sort()
+	once the elements are added, we cannot change the order of a Set
+	But we can copy the contents of Set into List and vice versa
+
+	LinkedList<Integer> marks=new LinkedList<>();
+	List<Integer> marks=new LinkedList<>();			//good practise. because, if a method takes List as 				argument, we can supply arraylist or linkedlist		that benefit is there.
+
+	marks is a list
+	we can create a Set from list
+
+	Set<Integer> markSet=new HashSet(marks);		//marks elements are copied to Set
+	List<Integer> result=new LinkedList(markSet);		//convert to list (distinct)
+
+Task:
+------
+		public List<Integer> method1(List<Integer> input)
+		{
+			//write your code here. Return the list that contains only distinct elements
+			Set<Integer> temp=new LinkedHashSet<>(input);		//duplicates are removed
+			List<Integer> result=new ArrayList<>(temp);		//again as list
+			return result;
+		}
+
+
+
+-------------------------------------------------------------------------------
+Map
+----
+
+HashMap
+TreeMap
+LinkedHashMap
+
+	there is no add() method in map. Use put() method to add and get() method to get
+
+
+List and Set has elements
+Map has entries
+	every entry has key and value
+
+Entry
+EntrySet
+
+
+
+
+in Set,
+	duplicate entries are rejected
+in Map,
+	duplicate key means, their value is updated
+
+
+
+in oracle/mysql
+
+UNIQUE constraint allow any number of NULLs
+
+but in Java Set, one null is allowed. second null is duplicate
+
+
+
+
+		HashMap<Integer, String> countries=new HashMap<>();
+		countries.put(10, "India");
+		countries.put(110, "Australia");
+		countries.put(null, "Srilanka");
+		countries.put(210, "Kuwait");
+		countries.put(120, "Argentina");
+		countries.put(null, "Zimbabwe");
+		countries.put(310, "Japan");
+		countries.put(130, "China");
+		countries.put(103, "Pakistan");
+		countries.put(103, "Bangladesh");
+		
+//		System.out.println(countries);
+		
+		for(Entry<Integer, String> entry:countries.entrySet())
+		{
+			System.out.println(entry.getKey()+" : "+entry.getValue());
+		}
+
+-----------------------------another way-----------------
+
+
+		Set<Entry<Integer, String>> entries = countries.entrySet();
+		Iterator<Entry<Integer, String>> it = entries.iterator();
+		while(it.hasNext())
+		{
+			Entry<Integer, String> entry = it.next();
+			System.out.println(entry.getKey()+" : "+entry.getValue());
+		}
+	
+-------------------------another way--------------------------
+			Set<Integer> keys = countries.keySet();
+			Iterator<Integer> it = keys.iterator();
+			while(it.hasNext())
+			{
+				Integer key = it.next();
+				System.out.println(key+" : "+countries.get(key));
+			}
+		
+
+-----------------------------------------
+Task:
+-------
+
+Write a program that accepts a String input
+and displays the alphabets along with their occurances
+
+sample input:
+this is a sentence typed by the user as input
+
+sample output:
+ 9
+t 5
+h 2
+i 3
+s 5
+a 2
+e 4
+
+solution:
+---------
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
+
+public class App2 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String input=sc.nextLine();
+		
+		Map<Character, Integer> result=new TreeMap<>();
+		
+		for(char c:input.toCharArray())
+		{
+			int count=0;
+			Integer x = result.get(c);
+			if(x!=null)
+				count=x;
+			count++;
+			
+			result.put(c, count);
+		}
+		
+//		/display result
+		
+		for(Entry<Character, Integer> entry:result.entrySet())
+			System.out.println(entry);
+	}
+
+}
+
+
+
+
+in oracle
+EMployees
+	id, fname, lname, salary, deptid
+
+in a map
+
+deptid should be the key
+sum of salary shoud be the value
+
+
+if deptid is already found,
+	get the value ie., the sum of salary
+	add the salary to that
+if deptid is not found,
+	0+salary 
+	add the new entry
+
