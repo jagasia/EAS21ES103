@@ -1,0 +1,143 @@
+1) Java Learning
+2) Java Hands on
+3) Oracle exam preparation (tomorrow, tuesday, exam for oracle) Multiple choice exam in Tekstac platform
+
+-------------------------------------------
+Java Date
+----------
+In Java 8, what are the date options we have?
+	java.util.Date
+	java.sql.Date
+	java.time.LocalDate
+
+
+Date is a class in util package:
+	Date dt=new Date();	
+		by default what is the date stored in this object?
+			it will store the system date and time.
+		Which system?
+			in which system it is running, that system date.
+
+		Every date is actually a number		long data type number
+		that number keeps increasing every millisecond
+		From when?		1970
+			Thu Jan 01 05:30:00 IST 1970
+
+
+How to convert java.util.Date into sql.Date
+	java.sql.Date dt1=new java.sql.Date(dt.getTime());
+		
+
+LocalDate:
+	is introduced in java 8 version
+we can do arithmetic on dates easily like
+	finding the age of a person
+	
+
+		String str="1999-01-01";
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date dob1=sdf.parse(str);
+		java.sql.Date dob2=new java.sql.Date(dob1.getTime());
+		LocalDate dob3 = dob2.toLocalDate();
+		
+		LocalDate today=LocalDate.now();
+		
+		System.out.println(dob3);
+		System.out.println(today);
+		Period result = Period.between(dob3, today);
+		System.out.printf("You are %d Years, %d Months and %d days old",result.getYears(),result.getMonths(),result.getDays());
+
+
+Date
+	getTime
+	setTime
+long number respresenting every millisecond as a long value
+
+Calendar
+	GregorianCalendar
+		
+GregorianCalendar gc=new GregorianCalendar();
+		System.out.println(gc.isLeapYear(2024));
+
+
+SimpleDateFormat
+	parse()			converts String into java.util.Date
+	format			converst java.util.Date to String
+
+Scanner
+	next()				only till the delimiter like SPACE, TAB, NEWLINE
+			ideally useful for only one word 
+	next().charAt(0)		to get one character as input
+	nextLine()			to get input till a new line is found
+	nextInt()
+	nextFloat()			all these will accept till any delimiter is found	SPACE/TAB/NEWLINE
+
+-----------------------------------------------
+Process
+	Notepad is a program.
+	when i run this program, 7 times, at a time, 
+	i can see 7 instances in the "Processes" tab of Task Manager.
+
+	Process is a running instance of a program.
+
+	Process contains one or more Threads
+
+Any program you run, (has a main method), then the main method becomes a flow of execution.
+	only from main, we branch to other methods.
+
+	Any program, running, has a main thread.
+
+	so far, we have executed many programs, then there was main thread inside those processes
+
+There is no process without a main thread
+
+so far we have created single threaded processes
+
+if we add child threads, which can be started from main thread, then we are creating 
+	multi threaded processes
+
+
+MS Word
+	as we are typing, there is 
+		auto completion
+		auto correction
+		word wrap
+		spell check utilization
+
+	Threads running inside the process
+
+Resourse
+	time and memory
+
+	3 GHz		1/time		3*1024*1024*1024
+
+	For effective utilization of cpu,
+		it is better that a process can have more than 1 thread
+
+	bcos, threads do not require separate resource allocation 
+	they share the resources allocated for the process
+
+1 thread in a process
+	0%
+2 threads in a process
+	50%
+3 threads in a process
+	66%
+4 threads in a process
+	75%
+
+
+optimal usage of threads is considered
+
+
+Thread is a class
+Runnable interface
+
+a class that implements Runnable interface and override the run() method can be used as a Thread
+
+a class that extends Thread and overrides run() method, is a Thread
+
+Thread
+
+
+Runnable is a functional interface ie., this interface has only 1 abstract method called run() method
