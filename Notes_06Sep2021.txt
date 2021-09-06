@@ -141,3 +141,212 @@ Thread
 
 
 Runnable is a functional interface ie., this interface has only 1 abstract method called run() method
+
+what is a functional interface?
+	an interface that has only 1 abstract method is a functional interface
+
+we can implement it using lambda
+
+
+-------------------------
+Usually, a program runs in a synchronous mode.
+ie., if we call 2 methods like:
+
+	method1();
+	method2();
+
+then only after the completion of method1, the next method ie., method2 will start.
+
+But if we call these 2 methods using 2 different threads, 
+then even before method1 completes, the method2 starts parallely
+
+that is called asynchronous execution
+
+ie., both threads run independantly
+
+but some times, we need to coordinate the threads. Hence synchronization is required.
+
+When we roam inside an airport, everybody is independant. 
+But when we enter the security check gate, only 1 by 1 is allowed
+
+like that threads are asynchronous but when they access a shared resource, at a time, then inconsistency risk is there
+
+variable x
+
+is accessed by many threads at a time
+
+1
+2
+3
+4
+
+4+1	=	5
+
+if two threads do this at a time
+
+one updation might go missing
+
+synchronization is required
+
+1) join()
+	this method ensures that all the started threads can continue. 
+	but the threads that are not yet started, will wait for the running threads to complete
+
+
+
+T1 t1=new T1();
+		T2 t2=new T2();
+		Thread t3=new Thread(new T3());
+		Thread t4=new Thread(new T4());
+		
+		t1.start();
+		t2.start();
+		t2.join();		//already started thread, t1 & t2 are continuing. until they finish, t3 & t4 						do not start
+		t3.start();
+		t4.start();
+		
+
+it is upto where we are using join()
+
+-----------------------------------
+Lets understand 
+	synchronization blocks
+	synchonization methods
+
+synchonized block
+	is a block of code that can allow only 1 thread to enter the block. 
+	until the entered thread, exits the block, other threads are not allowed to enter the block
+
+
+sync happens only if multiple threads try to access same object
+	in aiport, during security check,
+	if there is only 1 gate, then multiple passengers should follow queue
+	if there are 4 gates and there are 4 passengers, nobody will stand in the queue
+
+suppose there are 2 threads, accessing 2 objects, there is no need for synchronization.
+suppose there are 2 threads, accessing 1 object, then we need to do synchronization
+
+
+class Employee
+{
+	
+	public void display() throws InterruptedException
+	{
+		System.out.println(Thread.currentThread().getName()+"Entering the displaymethod");
+		synchronized (this) {
+			for(int i=0;i<30;i++)
+			{
+				System.out.println(Thread.currentThread().getName()+" : "+i);
+				Thread.sleep(1000);
+			}
+			System.out.println(Thread.currentThread().getName()+"Exiting the synchronized block now");
+		}
+		
+	}
+}
+
+class MyThread extends Thread
+{
+	Employee employee;
+	
+	public MyThread() {}
+	public MyThread(Employee employee) {
+		super();
+		this.employee = employee;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	
+	public void run()
+	{
+		try {
+			employee.display();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+
+public class App9_Syncblock {
+
+	public static void main(String[] args) {
+		MyThread t1=new MyThread();
+		MyThread t2=new MyThread();
+		Employee rama=new Employee();
+		
+		t1.setEmployee(rama);
+		t2.setEmployee(rama);
+		
+		t1.setName("Thread 1");
+		t2.setName("THread TWO");
+		
+		t1.start();
+		t2.start();
+	}
+
+}
+
+
+
+
+=========================
+synchronized method
+	once a thread enters this method, other threads are not allowed to enter this method
+
+	in StringBuffer, every method that is used to affect the string is synchronized
+----------------------------------------------------------
+
+
+
+IN (A,B,C,D,E)
+
+=ANY
+
+>=ALL
+<=ALL
+
+NOT IN
+
+
+Subqueries are used to find a result and use that result as a value for outer query
+
+usually sub queries are executed first and then their result is supplied to outer query
+
+But "correlated" subqueries work together with the outer because, the sub query depends on the outer query
+
+select * from departments d
+where not exists
+(select * from employees e where e.department_id=d.department_id);
+
+
+
+DDL	
+	CREATE, ALTER, DROP, TRUNCATE
+DML
+	INSERT, UPDATE, DELETE, MERGE
+DQL
+	SELECT
+DCL
+	GRANT, REVOKE
+TCL
+	COMMIT, ROLLBACK, SAVEPOINT
+
+
+
+
+
+
+
+RAW		unstructured data
+LONG
+CLOB
+BLOB
+BFILE
+
+
+
