@@ -1,0 +1,198 @@
+IO Streams
+-----------
+	Input/ Output
+	what is a stream, 
+		stream, is a series or sequence or character or bytes travelling from a source to destination
+		a data in tansit is a stream
+		route from A to B
+		
+	Already, we learnt few streams
+		System.in				input stream
+		System.out				output stream
+
+		
+	what is a file?
+		while learning input/output streams,
+		File is an example for source or destination of the stream
+
+		from file, we can get input
+		to file, we can send output
+
+		File is a storage of characters or bytes
+	
+	There are 2 types of streams:
+		character stream
+		binary stream		(byte)
+
+List out the types of file you know:
+txt
+pdf
+exe
+docx
+xls
+ppt
+csv
+jpf
+mov
+png
+xml
+html
+java
+cpp
+zip
+mpeg
+mp4
+mkv
+mp3
+py
+
+
+I know only 2 types:
+	text			.txt
+	binary			all other formats are binary
+
+video file?
+	it has bytes. thats all.
+	To play video, we need a player		like VLX Player, media player etc
+
+Picture?
+	it has bytes. thats all.
+	to view picture, we use picture viewer, or ms paint or something
+
+now have clarity,
+	file is separate, and the program that is used to view/play/edit file is different.
+
+
+similarly,
+	we can create file using java program,
+	we can read, edit, write, delete etc on the file. using java program
+
+Computer cannot do anything when it is only in hard disk.
+We have to load it in memory in order to "read" or "write"
+
+Even human also.
+
+THe data is in hard disk as a file (secondary storage). 
+But until the data is loaded in the memory (primary memory),
+the program cannot access the data
+
+If you have to load the data in memory, then you need variable.
+File should be represented in the memory as an object then what is class?
+
+	File
+		java.io.File		is the class that is used to represent a file in memory as an object
+
+If you can represent anything as an object in memory, you can manage it.
+Printer
+Scanner
+Bulb
+Fan
+TV
+	if we can represent it as an object, then we can 
+		off
+		on
+		increaseVolume
+	
+File is a class in java.io package, used to 
+	get information about the file
+		length
+		readonly or not
+		location
+		delete
+		create
+		rename
+
+File class not only represent the file, but also a directory/folder
+
+	when it represent a folder,
+		list			list of files and folders
+		mkdir			create a directory
+		exists			true if such folder exists or else false
+
+
+To display all files and folders in a location:
+--------------------------------------------------
+		File f=new File("D:\\Jag\\CTS");
+		String[] x = f.list();
+		for(String s : x)
+		{
+			System.out.println(s);
+		}
+
+
+To display all the directories in a location:
+-------------------------------------------------
+		File f=new File("D:\\Jag\\CTS");
+		File[] x = f.listFiles();
+		for(File s:x)
+		{
+			if(s.isDirectory())
+				System.out.println(s.getName());
+		}
+
+
+To display all  the  files present in a location
+-------------------------------------------------
+		File f=new File("D:\\Jag\\CTS");
+		File[] x = f.listFiles();
+		for(File s:x)
+		{
+			if(!s.isDirectory())
+				System.out.println(s.getName());
+		}
+
+
+==============================================================
+Stream classes
+1) Character
+	Reader
+		FileReader
+		BufferedReader
+	Writer
+		FileWriter
+		BufferedWriter
+2) Binary
+	InputStream
+		FileInputStream
+		BufferedInputStream
+	OutputStream
+		FileOutputStream
+		BufferedOutputStream
+
+
+
+if you have to write characters into a file?
+	FileWriter
+
+If you have to read from another stream,
+	BufferedReader
+	BufferedInputStream
+
+
+System.in 
+	is node stream			
+	node is a definite source or destination
+	File is a node
+	Keyboard is a node
+
+To reaed from System.in
+	we use BufferedReader or BufferedInputStream
+
+
+1) Read all bytes from a picture file
+2) Keep all those bytes in an array
+3) Write all  those bytes into a new file
+4) open the file and see the picture
+
+C:\Users\rjaga\Pictures\vada.jpg
+
+
+
+flush method is used to reflect the changes in memory to storage
+usually, if we do not use flush also, when the file is closed, it will flush
+even if we do not close the file, but when program ends gracefuly, the flush /close happens automatically
+
+But in a GUI application, if the form is not closed at all, the write operation is not found reflecting in hard disk until a flush is done
+
+in CUI application, when the last line of the main method is completed, it automatically ends the program and closes the files. So flush happens even if it is not coded.
+
