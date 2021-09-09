@@ -104,3 +104,179 @@ now,
 1) create a java program that will accept input from the user and stores a record in the table
 2) create a java program that accepts input from the user and updates (a) record(s) in the table
 3) create a java program that gets id as input and removes that row from the table
+
+
+Date formats:
+	oracle 	dd-MMM-yy		(but in application express, 		MM/dd/yyyy)
+	mysql	yyyy-MM-dd		(this is almost universal format)		HTML5
+
+
+Date is a class in java.util package
+	while converting String into Date
+		sdf.parse(str);
+	while converting Date into String
+		sdf.format(dt);
+
+the Date object itself do not have any specific format. 
+It is an object
+	it has members like month, year, hour, etc
+
+while displaying a date object
+	System.out.println(dt);			here, dt.toString() is called. it will display in lengthy format
+						it does not mean that Date object has date in that format
+while sending date to oracle database,
+	remember we are sending String in a specific format 	dd-MMM-yy that is converted into date
+
+	
+
+In java projects, we follow some pattern
+	DAO pattern		Data Access Objects
+
+If we need to access a table called "COUNTRIES"
+then what are the steps to follow:		in future, if i tell you the table name, you should be able to do:
+
+1) Country.java			is called as Entity class		means, it is mapped to a Table
+		public class Country{}
+
+	inside this class, there should be properites: 	countryId, countryName, regionId
+
+2) CountryDao.java
+		public interface CountryDao
+	
+	inside this interface, declare all the methods related to database access
+	(we will do reverse engineering. ie., create implementation class and then generate interface from that)
+
+3) CountryDaoImp.java
+		public class CountryDaoImpl implements CountryDao
+
+	
+
+
+E-R diagram
+	Entity Relationship Diagram
+
+		here every or regular entity becomes a Table in database. And class in java program
+		that is why it is called as Entity class
+
+
+-------------------------------------------------------
+Statement
+PreparedStatement
+CallableStatement
+
+	what is this callable statement?
+		this is used to call
+			stored procedures 
+			stored functions
+
+	PROCEDURES and FUNCTIONS are PL/SQL programs		PL/SQL stands for?
+			PROCEDURAL LANGUAGE EXTENSION TO SQL
+
+	
+
+CREATE OR REPLACE PROCEDURE PRC1(EID INT, FNAME OUT VARCHAR2, SAL OUT INT)
+AS
+BEGIN
+ SELECT FIRST_NAME, SALARY INTO FNAME, SAL 
+ FROM EMPLOYEES WHERE EMPLOYEE_ID=EID;
+END;
+
+
+
+
+
+a procedure in oracle is similar to void method in java
+
+void display();		//this method does not return a value
+similarly, a procedure does not have return type. But it can have OUTPUT parameters that return values
+
+The above procedure can be called from a plsql block like:
+
+declare
+ eid int:=104;
+ fname varchar2(20);
+ sal int;
+begin
+ PRC1(eid, fname, sal);
+ dbms_output.put_line(fname);
+ dbms_output.put_line(sal);
+end;
+
+
+NOW, how to call this procedure from a JDBC program?
+	hint: use Callable Statement
+
+
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.SQLType;
+import java.sql.Types;
+
+public class App {
+
+	public static void main(String[] args) throws SQLException {
+		int eid=111;
+		String fname="";
+		int sal=0;
+		Driver driver=new oracle.jdbc.driver.OracleDriver();
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","hr");
+		CallableStatement st = con.prepareCall("{ call PRC1(?,?,?)}");
+		st.setInt(1, eid);
+		st.registerOutParameter(2, Types.VARCHAR);
+		st.registerOutParameter(3, Types.INTEGER);
+		st.execute();
+		
+		System.out.println(st.getString(2));
+		System.out.println(st.getInt(3));
+	}
+
+}
+
+
+--------------------------------
+How to call a stored function?
+
+
+	con.prepareCall("{ ?= call FN1(?,?)}");
+	//first parameter is output
+	
+
+----------example
+
+CREATE FUNCTION mul(a int, b int) RETURNS INT
+BEGIN
+DECLARE c INT;
+SET c = a*b;
+RETURN c;
+END;
+
+
+
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Types;
+
+class JDBC_Function_Example {
+
+    public static void main(String[] args) throws Exception {
+        Connection connection = null;
+        Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+        connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/onlinetutorialspoint", "root",
+                "123456");
+        CallableStatement cStmt = connection.prepareCall("{?=call mul(?,?)}");
+
+        cStmt.registerOutParameter(1, Types.INTEGER);
+        cStmt.setInt(2, 20);
+        cStmt.setInt(3, 60);
+        cStmt.execute();
+        System.out.println("The Multiplication is : " + cStmt.getInt(1));
+        cStmt.close();
+    }
+}
