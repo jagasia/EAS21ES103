@@ -1,0 +1,216 @@
+In java io streams:
+	Buffered Input and Output
+	Serialization
+
+
+Before java 5,
+	ie., jdk 1.1 to 1.4
+
+	There was no Scanner class. 
+	How did we get input?
+
+	We used, BufferedReader class 
+		to get character input from the user
+
+
+	System.in		is the object that represents keyboard
+		this is InputStream		ie., binary stream
+
+	BufferedReader		is a character stream
+		so we need a converter 
+
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+
+InputStream in binary
+Reader is char stream
+	What is this InputStreamReader		(OMG	COMBINES both type of streams)
+		this is the converter that converts InpuStream (System.in) into Reader
+
+
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("What is your name?");
+		String name=br.readLine();
+		System.out.println("Your name is "+name);
+
+
+Filter stream:
+	BufferedInputStream
+	ObjectInputStream
+
+		these are filter streams, they work on other streams like FileInputStream
+		why do we need filter streams?
+			when we need some functionality that is not present in node stream, we use them
+		Ex: in buffered streams, we can specify the buffer size. The data will  be read in that number of 			bytes at a time
+
+		Why we need object input stream or output stream?
+			if we need to store objects into a stream
+
+		This is called as Serialization. Because, objects are no sequential or serial.
+		By converting objects into series of bytes, we can store them in files or any streams
+
+		In order to provision/allow serialization, the class of the object should implement Serializable
+		Serializable is a marker interface
+
+		What is a marker interface?
+			an interface that do not have any abstract method is a marker interface.
+			If an interface has only 1 abstract method then it is called as functional interface.
+
+		public void method1(Serializable s)
+			we can pass an object of any class, that implements Serializable interface
+
+Suppose, we need to store information in a file
+		sno, name, address, phone, email
+
+		what is the problem we face?
+	
+
+DataInputStream
+DataOutputStream
+	these streams are used to read/write "primitive" data types in a file/stream
+
+	readInt()
+	readFloat()
+
+
+		int sno=121;
+		String name="Rama krishna";
+		String address="123, Raja street, Coimbatore";
+		String phone="988989898";
+		String email="rama@yahoo.com";
+		
+		//when you read these info from  file, there is a problem with the delimiter. Address in unstructed, we dont know how many spaces are there
+		
+		So solution for this problem:
+			if we write an object of a class in to a file
+			and if we read an object from the file,
+			this problem can be solved
+
+
+create a class ex: Employee
+	set the values
+	write the object into the file
+
+ObjectOutputStream 
+ObjectInputStream
+	not only for file, any stream, thats why it is filter stream that works on node stream
+	File is a node
+	FileInputStream is also a node stream
+
+	ObjectOutputStream works on FileOutpuStream		and vice versa
+
+
+It is possible to write or read any type of object
+	even arraylist	
+	even treemap
+
+we can write any object into a file and read also
+
+
+---------------------------------------------
+
+Introduction to JDBC
+Types of JDBC Drivers
+JDBC APIs
+JDBC Exception
+
+
+
+JDBC stands for Java Database Connectivity
+	allows a java program to access a database
+	JDBC is an API	application programming interface
+	that acts as a layer between "Java" and "DB"
+
+	allows embedding "sql queries" inside java programs
+	
+what are drivers?
+	drivers know how to drive a vehicle.
+	drivers are java programs created by the database vendors.	(vendors?  Oracle, Microsoft, IBM, etc)
+
+	When many vendors create programs, then there must be some standard that all the vendors may follow
+		That is defined in JDBC
+
+	ex:
+		Driver interface is defined in the jdbc 
+		the implementation is created and provided by the database vendor
+			Driver driver=new com.mysql.jdbc.Driver();
+			Driver driver2=new oracle.jdbc.driver.OracleDriver();
+
+	
+		Driver is an interface provided by java jdbc
+		their implementation classes are provided by database vendor.
+
+	Those implementations are provided as jar files
+	"jar" stands for Java Archive		(archive is similar to .zip or .rar)
+
+	we can open a jar file using winrar also
+
+Now, we are going to access oracle database with the help of "ojdbc8.jar"
+	you can download this ojdbc.jar from oracle website itself.
+	if it ask you to sign in, "there may be an option to download without sign in. Or use the account you created 			in livesql.oracle"		
+
+	What is a driver?
+		driver is a java program created by the database vendor
+
+
+TYpes of drivers?
+	Type 1		ODBC bridge driver		Open standar	
+	Type 2		Partial Java driver		Native
+	Type 3		Net Pure Java driver
+	Type 4		Protocol Pure Java driver for direct-to database
+	
+			URL
+				jdbc:oracle:thin:@localhost:1521:XE
+
+
+Steps to access database from a java program:
+	0) add the jar file (ojdbc8.jar) to the build path
+		right click the project
+			-> properties
+			-> build path
+			-> libraries
+			-> add external jar
+				add the jar file here
+	1) Load the driver		(in new versions of java like 8, it is not mandatory. Based on url, it is 					understood)
+	2) Get connection
+	3) Create a statement from connection		(object representation of SQL query)
+	4) Execute the statement
+	5) close the connection
+
+
+
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class App1 {
+
+	public static void main(String[] args) throws SQLException {
+		Driver driver=new oracle.jdbc.driver.OracleDriver();
+		String url="jdbc:oracle:thin:@localhost:1521:XE";
+		String username="hr";
+		String password="hr";
+		Connection con = DriverManager.getConnection(url,username,password);
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select employee_id, first_name, last_name from employees");
+		while(rs.next())
+		{
+			System.out.println(rs.getString(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3));
+		}
+		con.close();
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+JDBC:
+	in the 1 example we have seen,
+	
+	Statement st=con.createStatement();
+	ResultSet rs=st.executeQuery("SELECT * FROM EMPLOYEES");
+	while(rs.next())
+	{
+		System.out.println(rs.getString(1));//		1 is the column number.
+	}
+
+
+Let's take this statement:
+	Statement st=con.createStatement();
+
+There are 3 types of statements:
+	i) Statement		interface
+	ii) PreparedStatement 	interface
+	iii) CallableStatement	interface
+
+When to use which type of statement?
+	i) Whenever we execute a simple query.
+		it can be SELECT, INSERT, UPDATE, DELETE, anything......
+		but what is a simple query?????
+			A simple query does not depend on inputs at runtime
+
+		INSERT INTO COUNTRIES VALUES(1,'India',12121212121212)
+
+			tHIS is a simple query because, it does not depend on input
+
+		int id=2;
+		String name="Australia";
+		Long population=89898989;	
+		
+		String sql="INSERT INTO COUNTRIES VALUES(id,name,population)";		
+		String sql="INSERT INTO COUNTRIES VALUES("+id+",'"+name+"',"+population+")";
+
+		****************** the above also a simple query **************************
+
+
+	ii) String sql="INSERT INTO COUNTRIES VALUES (?,?,?)";
+		//the above is not a simple query
+		//it is a parameterized query
+
+		we should use PreparedStatement now
+
+
+		String sql="SELECT * FROM COUNTRIES WHERE id=?";		//this is also a parameterized query
+
+		I STRONGLY RECOMMEND YOU TO USE "PREPARED STATEMENTS" in your project whenever conditions or 			parameters are there
+
+		String sql="INSERT INTO COUNTRIES VALUES("+id+",'"+name+"',"+population+")";
+		//the above is STRONGLE DISCOURAGED APPROACH. DO NOT DO THIS
+
+		Why?
+			i) you can append String + number + Date+ any scalar values
+				but how would you append a picture???		audio???	video???
+			
+			so use prepared statement
+
+			ii) string append technique is prone to SQL injection
+				but PreparedStatements does not allow sql injection, because, it will consider entire value as username or password (for example) and does not allow syntax to be affected or commented out
+
+		
+
+CREATE TABLE USER_MASTER
+(
+USERNAME VARCHAR2(20) PRIMARY KEY,
+PASSWORD VARCHAR2(20) NOT NULL
+);
+
+
+username=			i dont know' or 1=1 --
+password=			i dont care
+"SELECT * FROM USER_MASTER WHERE USERNAME='"+username+"' AND PASSWORD='"+password+"'"
+
+SELECT * FROM USER_MASTER WHERE USERNAME='i dont know' or 1=1 --' AND PASSWORD='i dont care'
+
+
+		iii)
+			so far, we have seen,
+				Statement for simple query
+				PreparedStatement for parameterized query
+			now
+			CallableStatement
+				to call stored procedures and functions present in the database
+				do not confuse, predefine functions, here
+				Functions and Procedures are PLSQL programs created in the database
+
+--------------------------------------
+Statement
+PreparedStatement
+CallableStatement
+
+now,
+	coming into execute methods
+
+	void execute()		used for executing any query	DML, DDL, DQL etc	but we dont get return value
+	ResultSet executeQuery() is used for "SELECT QUERY" only	returns result set
+	int executeUpdate()	used for INSERT, UPDATE, DELETE		returns number of rows affected
+
+
+
+
+1) create a java program that will accept input from the user and stores a record in the table
+2) create a java program that accepts input from the user and updates (a) record(s) in the table
+3) create a java program that gets id as input and removes that row from the table
