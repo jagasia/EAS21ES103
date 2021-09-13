@@ -1,0 +1,105 @@
+What is the return type of 
+	sc.next();	?????
+----------------
+
+
+in a linked list, i am going to add
+
+list.add(200);
+list.add(100);
+list.add(300);
+
+what will be order??????
+
+--------------------
+Collections.reverse()
+	please check this method
+	and its signature
+--------------------------
+
+what will the get() method return when key is not found?
+	map.get(key);		//key is not found
+
+
+ArrayList have indexOf method
+	what will be the index of first element?
+
+so if element is not found?
+
+------------
+
+sort method belongs to???
+	Arrays
+	Collections
+
+
+
+ArrayList.sort()		is NOT CORRECT
+
+can we call the run method directly 
+
+Thread
+	run()
+
+.start()
+.run()
+
+both are correct
+
+how can we remove an element from a tree set?
+
+not while looping. Just remove by value
+
+void display(int []...x)
+{
+}
+
+What is x?
+
+x is a param array
+x is a variable length argument
+
+... is called ellipsis (spelling may not be correct)
+
+Collections class has "binarySearch" method
+
+To make a method as "Thread safe",
+we can also declare the method as "static"
+
+
+wait()
+	method of thread
+		waits until "notify" or "notifyAll" method is used.
+	sometimes, we can give timing 
+wait(1000)
+	once the time lapsed, the thread will continue
+	before that time lapse, if notify/ nofiyAll is called, then also the thread will continue
+
+start()
+yield()
+join()
+sleep()
+	which of these methods, can you call using 
+	Thread.
+t1.start();		object.start() NOT Thread.start() what will it start? object has method
+Thread.start() is WRONG
+
+Thread.yield() is correct. Because, it is not specific to a Thread object.
+
+whoever is owner of monitor should give up and next random thread is allocated the monitor.
+
+Checked exception
+
+Exception classes hierarchy
+
+	FileNotFoundException extends IOException
+
+if we handle IOException, then it will also handle
+	FileNotFoundException
+
+suppose, if you give array index as -1, then
+	compile time or run time error?
+compile time, checking checks if a number is used in index or not. Thats all. 
+
+but only at runtime, it will use that index to access the element, and gets error at rutime
+

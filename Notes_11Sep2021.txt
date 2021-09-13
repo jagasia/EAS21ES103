@@ -1,0 +1,153 @@
+in jdbc we learned:
+	Statement
+	PreparedStatement
+	CallableStatement
+
+to execute these statements:
+	void execute()
+	ResultSet executeQuery()	//for select	SELECT		we need ResultSet
+	int executeUpdate();		//for DML	INSERT, UPDATE, DELETE
+
+Dao pattern
+	entity
+	Dao interface
+	DaoImpl	class
+	Connection class
+		getConnection method
+			so that in many dao impl classes, the connection class can be reused
+
+	in our previous example, we had only 1 dao impl class. So we just had a private method that  is used to get 		connection. and we called that method in every db operations
+	when we have lot of dao impl methods, instead of writing the code to get connection in every class, we may 		have one connection class and use it in every dao impl
+
+----------------------------
+Today,
+	Metadata 
+	Transactions
+	Exceptions in jdbc
+
+What is this meta data?
+	meta data is like bio data. It explains itself. Like self explanation.
+	jdbc meta data:
+		ResultSetMetaData
+		DatabaseMetaData
+
+Let's see ResultSetMetaData
+	this is used to get information about the result set, like:
+		no of columns
+		name of columns
+		data type of columns
+		etc etc
+
+	using this, especially when we use SELECT * FROM.....
+
+		* means, all the columns. That means, we are writing the program general way so that even if a column 			is added/ removed/ modified from the database, our program remains same.
+
+	
+--------------------
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class App {
+
+	public static void main(String[] args) throws SQLException {
+		Driver driver=new oracle.jdbc.driver.OracleDriver();
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","hr");
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM DEPARTMENTS");
+		//ResultSetMetaData can be obtained from ResultSet
+		ResultSetMetaData rsmd = rs.getMetaData();
+		System.out.println("There  are "+rsmd.getColumnCount()+" column(s)");
+		System.out.println("The data type of column 2 is "+rsmd.getColumnTypeName(2));
+		for(int i=1;i<=rsmd.getColumnCount();i++)
+		{
+			System.out.print(rsmd.getColumnName(i)+"\t");
+		}
+		System.out.println();
+		while(rs.next())
+		{
+			for(int i=1;i<=rsmd.getColumnCount();i++)
+			{
+				System.out.print(rs.getString(i)+"\t");
+			}
+			System.out.println();
+		}
+		DatabaseMetaData dbmd = con.getMetaData();
+		System.out.println(dbmd.getDriverName());
+		System.out.println(dbmd.getDatabaseProductName());
+		System.out.println(dbmd.getDatabaseMajorVersion());
+	}
+
+}
+
+--------------------------------------------
+What is a transaction?
+	specific to RDBMS,
+		Every DML operation itself is a transaction
+		SELECT query is never a transaction. 
+
+		Transaction is a single unit of operation
+			that single unit may have multiple DML statements that are executed together 
+			
+		ATOMIC
+			means you cannot split it and perform partially
+			all statements are successful or all statements together is failure
+			there is no partial success
+			all (otherwise) none
+		
+			ex:
+				you are making a payment online while buying a ticket.
+				1) your account will be debited
+				2) your ticket is generated
+
+			would you agree, if transaction failed and your account is debited, but ticket is not 				generated
+
+			if( both are failed ) 
+				you can retry booking the ticket
+			if both are successful
+				it is fine
+
+			Failure cannot be avoided. 	However good our program is, there are things beyond our 				control	like N/W I/O memory, concurrency or traffic etc etc etc
+			failure is not a crime. but even in failure, how the transaction leaves the data in a 				consistent state?
+					the txn leaves the data to a state
+					i) before transaction in case of failure.
+
+			
+COMING INTO JDBC:
+	What is a transaction?
+		Every DML operation we do in jdbc is itself a transaction.
+			if we do update some 10 records in the table, all 10 records are affected otherwise, none of 			them are affected.
+			means, every DML statement runs in IMPLICIT Transaction
+			
+		Who is giving COMMIT/ ROLLBACK?
+			If there is a transaction, then where is the commit? and where is the rollback?
+
+	Jdbc transactions are usually done in AUTO-COMMIT mode.
+	so we are not giving commit or rollback.
+		when successful, it is auto committed
+		when failed, it is auto rolled back
+
+	If we still want to do manual transaction, in jdbc,
+		we need to set the auto commit mode to FALSE 
+
+			con.setAutoCommit(false);
+		by doing this, we are expected to commit or rollback manually
+
+-------------------------------------------------
+SQLException
+	this is comprehensive that the error that occurs in oracle can be seen here
+
+	if you add a row in table with duplicate value for primary key column, directly in oracle env
+	what error do you see?
+		the same error will propagate to the calling env ie., java
+	and that error can be seen using SQLException in catch block
+
+
+ClassNotFoundException
+	occurs when we use
+		Class.forName(driverClassName);
+
