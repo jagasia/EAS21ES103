@@ -203,3 +203,91 @@ While practising,
 
 	in that function, practise all these syntax
 
+
+1) create a html file
+2) create a .js file
+3) reference the js file from html file
+4) create a function
+5) call the function in an event
+6) inside the function 
+	declare variables of various data types
+7) display the type of the variable
+	change the value and then check the type of variable
+8) practise 
+	if
+if else
+if elseif else
+switch case
+while loop
+do while loop
+for loop
+for each loop	(There is no for each loop syntax in javascript)
+	forEach method is there in javascript
+
+Lets learn to access the html elements:
+---------------------------------------
+HTML Elements can have 
+	ID
+	NAME
+		Attributes
+
+
+ID
+	must be unique across all elements
+	<input type="text" id="txt1" name="frm" >
+	<input type="text" id="txt2" name="frm" >
+
+In the above example, 
+	notice that both the text boxes can have same "NAME" attribute.
+	but they cannot have same "ID" attribute. ID must be unique
+
+to get the value of textbox, javascript uses DOM
+	Document Object Model
+		DOM is an object representation of HTML document or its elements
+		DOM treats the entire HTML document as a node. A node that contains all other nodes
+		everything is a node in a document tree
+		
+	to access the value of a textbox, based on ID
+		document.getElementById("txt1").value;
+
+	here, document is the object representation of entire html page / document
+	document object has methods like
+		getElementById()		only one element can be obtained by id. so get Element by id
+		getElementsByName()		many elements can have same name. So if you get by name, you get 						Elements.
+		both these methods return object representation of the corresponding element
+		that element value can be obtained using .value property
+
+		document.getElementById("txt1").value;
+
+	<input type="text" id="txt1" value="Hello world" >
+
+		you understand value is the attribute that contains the value of the element
+
+SCALAR vs CONTAINER elements:
+	Text Box
+		contains scalar value.	means, single value
+	Paragraph
+	Div
+	select
+		These elements do not have single value. They are container that can contain TEXT or HTML content
+		These elements have 
+			innerHTML		treats html elements and process them and produced output
+			innerTEXT		treats <b><i> all/everthing as characters
+
+	
+
+Task:
+-----
+create a html page with
+	textbox
+	numeric text box
+	radio button
+	check box
+	drop down list
+	and as many type of input elements as possible
+
+	give unique ID for each element
+
+	and access these elements from a javascript function 
+	and display their values
+
