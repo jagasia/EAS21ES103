@@ -291,3 +291,59 @@ create a html page with
 	and access these elements from a javascript function 
 	and display their values
 
+
+Task:
+-----
+Create a html page that has check boxes.
+display all the values selected in the check boxes
+
+
+In javascript, we can display values in alert message box.
+But it is good practise to display in console. 
+	for logging or tracing purpose
+
+Right click browser,
+	Inspect
+		Console
+
+
+
+we can declare variables
+	globally	(outside any function)
+	inside a function
+	inside a loop	or block		{}
+	
+variable names cannot begin with number
+	2var		IS INVALID because, a variable name cannot begin with number
+
+cannot be reserved keyword
+	void		cannot be a variable name
+
+Operators
+	arithmetic operators
+	comparison operators
+	logical operators
+	bitwise operators
+	assignment operators
+	miscellaneous operators
+
+Task:
+	create a html form that accepts following information
+	Employee Id
+	First Name
+	Last Name
+	Phone
+	Email
+
+on clicking the button,
+	javascript function should be called
+
+	that function should create an object of Employee and set the values entered by the user
+	display that object in console.
+
+	Hint:
+		var employee={"employeeId":"1","firstName":"Rama","lastName":"Krishna","phone":"989898","email":"ram@yahoo.com"};
+		employee.employeeId=document.getElementBy....
+
+		console.log(employee);
+
