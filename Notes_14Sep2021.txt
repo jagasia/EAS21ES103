@@ -1,0 +1,205 @@
+Javascript
+	2 days to learn javascript
+	1 day to prepare for javascript exam
+	Friday we have javascript test
+
+------------------------------
+What is javascript?
+	is a client side script language
+
+What is client side?
+	we are going top create web pages now.
+
+	A web page contains HTML code.
+	A web page also can contain scripts. That makes a web page a dynamic web page.
+
+	Ex:
+		I can display Time in the webpage using HTML code.
+		This time will remain same time forever. That is static code done in HTML
+
+		Now, i display time using a javascript program. It is possible to display live time using dynamic 			code
+
+		But which time will be displayed by the javascript program?
+
+		dynamic aspect in a web page is anything like ability to 
+			calculate
+			validate
+			compute
+				or simple execute a code and produce output. That is dynamic
+
+		2+3
+			2+3 is printed as 3 characters
+
+		2+3	becomes 5
+			how?		it is because of calculation or computation
+
+			that ability to produce output is dynamic aspect.
+
+		HTML cannot produce dynamic output.
+
+		So we learn javascript.
+			
+
+		We display time using javascript code, but which time will be displayed?
+		
+		We are accessing www.facebook.com
+
+			suppose, facebook displays the time, which time will be displayed?
+
+		facebook web pages are not present in our computer. They are present in "SERVER"
+		by accessing the webpages, we become "CLIENT"
+
+		now if time is displayed by a javascript program, then our (client) computer's time will be displayed
+		because, javascript programs run in client computer (browser)
+
+		javascript programs are not executed at server. They are executed in the client machine's browser.
+		So javascript is a client side script language
+		-----------------------------------------------
+
+Overview:
+---------
+	Any idea? what is the latest version of javascript?
+		Javascript ES6
+
+	previous version was ES5
+
+	ES stands for ECMA Script
+	ECMA stands for European Computer Manufaturers' Association
+
+
+Advantages:
+-----------
+	Javascript runs in clients' browser and hence the response will be faster (when compared to server side 		scripts)
+
+	For example:
+		if the username and password textboxes are empty, then the submit button should not be enabled.
+		This can be done in javascript. It is not required to do it in server side scripts like servlets/jsp
+		
+	It reduces network traffic. Because, no need to reach the server
+
+	Good user experience like drag and drop, mouse move events, focus, blur, keyUp events for user experience
+
+	RIA		Rich Internet Applications
+
+	NO NEED TO INSTALL anything in clients machine.
+
+	Language, is also easy to learn like c, c++, java languages
+	
+Limitations:
+-----------
+	since javascript runs in client machine, it cannot access server side resources.(But AJAX is used to do that)
+
+	some browser settings can prevent javascript from running
+
+	cannot access database. The database is present in server only. NOT IN EVERY CLIENT.
+
+Lets start using visual studio code
+
+
+You may create a separate javascript file using .js extension
+You may embed javascript code inside a HTML file		(first we do like that)
+	<head>
+	</head>
+	<body>
+	</body>
+
+where shall i write javascript code?
+	head (or) body?
+
+If you write js code in <head>
+	then it is loaded even before the web page body is displayed in the browser.
+	so it is always recommended to write js code in <head> part
+
+No. If the body is dependent on javscript code, then if js code is below or in bottom, then the functionality is not available.
+
+Loading the js code before the page is rendered is good for performance.
+
+Advantage of having js code in body is
+	the js code will be able to access all the elements since they are available 
+
+There are advantages in both ways also
+
+<script>
+</script>
+	this tag is used to write javascript code in a html page
+
+Lets do a hello world program now!
+
+<script>
+        alert('hello world');
+</script>
+
+The alert is actually
+	window.alert('hi');
+
+This code is executed when the page is loaded
+------------------but
+
+<script>
+        function fn1()
+        {
+            window.alert('hello world');
+        }
+        
+    </script>
+
+when the page is loaded, this code is not executed. Because, the function fn1 is defined. But not called.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fn1()
+        {
+            window.alert('hello world');
+        }
+        
+    </script>
+</head>
+<body>
+    This is my web page...
+    <input type="button" value="Click me" onclick="fn1()">
+</body>
+</html>
+
+
+Look at the above program.
+	The button has a click event. that is bound to a function called fn1() now
+	so when button is clicked, the function fn1() is called
+
+
+Data types:
+	in javascript, we do not specify the datatype while declaring a variable.
+	But the data type is implied from the value we assign into the variable.
+
+
+{"eid":"1234","fname":"Rama","lname":"Krishna"}
+		this is a JSON string
+		JavaScript Object Notation
+
+
+variables in javascript.
+Arrays
+Objects
+
+if
+if else
+if elseif else
+switch case
+while loop
+do while loop
+for loop
+for each loop
+
+all these programming constructs you learned in java language, you can try it in javascript also
+
+While practising, 
+	create a function and call that function.
+
+	in that function, practise all these syntax
+
