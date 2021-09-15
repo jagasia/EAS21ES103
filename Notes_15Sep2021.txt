@@ -23,3 +23,96 @@ question in exam?
 			i would say both "head" and "body"
 
 
+
+Javascript event handling
+	click
+		onclick="fn1()"
+	blur				occurs when?	focus is lost. 
+	focus				opp to blur	
+	keyup
+	keydown
+	keypress
+	mouseover
+	
+
+	find out as many events as possible.
+
+Now, 
+	how to bind an event to an event handler (function)
+
+	sometimes, directly writing javascript code in event handling
+		<input type="button" value="Click here" onclick="alert('hello world')">
+
+
+
+	<input type="button" value="CLick me" onclick="fn1()">
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function init()
+        {
+            document.getElementById("btn1").addEventListener("click",fn1);
+        }
+            
+
+        function fn1()
+        {
+            alert('This is fn1 called now');
+        }
+
+    </script>
+</head>
+<body onload="init()">
+    <!-- <input type="button" value="Click here" onclick="alert('hello world')"> -->
+    <!-- <input type="button" value="CLick me" onclick="fn1()"> -->
+    <input type="button" id="btn1" value="Click this">
+    <script>
+
+    </script>
+</body>
+</html>
+
+
+
+
+Task:
+-----
+create few textboxes, when the focus enters a text box, its background color should change to yellow
+
+
+
+Cookies:
+---------
+cookies are always created in clients' computer
+key-value pair
+
+username=rama
+expires=...date...		(predefined)
+path=/			(predefined)			
+
+every cookie belongs to a file/ web page. It is accessible from that page only. 
+
+local storage can be created by one page, and can be accessed from any page
+
+	document.cookie = "username=John Doe";
+
+	document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC";
+
+	document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+
+to delete a cookie, if you give value =""
+		or  if you set expires to past date/time
+
+to access a cookie, we can decode a cookie
+
+
+
+https://www.w3schools.com/js/js_cookies.asp
