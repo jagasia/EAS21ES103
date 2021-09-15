@@ -1,0 +1,25 @@
+https://www.tutorialspoint.com/javascript/javascript_functions.htm
+
+What are functions?
+	is a modular approach
+	reusable code
+	can be defined once. can be called many times
+	
+	functions can take arguments (parameters)
+		arguments are inputs to the function
+	functions can return value/ object
+		return value is the output from the function
+
+	we have created functions and we have also mapped these functions to events
+
+	a function can also call another function
+
+
+
+question in exam?
+	where can you write javascript code?
+		head?
+		body?
+			i would say both "head" and "body"
+
+
