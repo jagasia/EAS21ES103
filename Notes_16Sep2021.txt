@@ -1,0 +1,21 @@
+Objects
+Exceptions
+---------------------------------
+Object in javascript can contain:
+	properties
+	methods
+
+var emp={"eid":"1","fname":"Rama","lname":"Krishna","salary":"1212121"}
+
+console.log(emp.fname);		//Rama
+console.log(emp["fname"]);	//Rama
+
+var str=document.getElementById('txt1').value;
+console.log(emp[str]);
+
+fname is a property of emp object
+
+
+var emp={"eid":"1","fname":"Rama","lname":"Krishna","salary":"1212121","fullName":function(){ return this.fname+' '+this.lname; }}
+
+var result=emp.fullName();
