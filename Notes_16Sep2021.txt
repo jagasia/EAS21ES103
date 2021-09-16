@@ -19,3 +19,99 @@ fname is a property of emp object
 var emp={"eid":"1","fname":"Rama","lname":"Krishna","salary":"1212121","fullName":function(){ return this.fname+' '+this.lname; }}
 
 var result=emp.fullName();
+
+
+for-each loops:
+            var arr=[11,20,5,35,53,78,85,67];
+            for(var x in arr)
+                console.log(x);
+
+hre, we use "in" then  we get indices
+
+use "of" to get values
+
+            var arr=[11,20,5,35,53,78,85,67];
+            for(var x of arr)
+                console.log(x);
+
+
+https://www.w3schools.com/js/js_object_properties.asp
+
+
+try
+{
+}catch(e)		//simply e is object. No need to specify the exception type......
+{
+}
+
+
+
+  throw new Error('This is the throw keyword'); //user-defined throw statement.  
+
+
+
+
+
+try{  
+var a=2;  
+if(a==2)  
+document.write("ok");  
+}  
+catch(Error){  
+document.write("Error found"+e.message);  
+}  
+finally{  
+document.write("Value of a is 2 ");  
+} 
+
+
+
+
+https://www.javatpoint.com/javascript-try-catch
+
+
+--------------------------------
+where can you place javascript code?
+	head
+	body
+	both
+	none
+
+js is designed for ?
+	server side
+	interactivity
+	styling
+	db query
+
+
+
+function fn1(x)			//no datatype for param
+
+
+return x;		//undefined
+
+
+<script src="one.js">
+</script>
+
+// this is a comment
+
+
+slice() accepts negative index
+substring() do not accept negative index
+
+in	operator is used to check if a property is there or not in an object
+
+64 bit format numbers
+
+infinity	is the output for indefinite or infinite value
+
+javascript is NOT same as java
+
+Javascript is case sensitive
+
+
+x=20;		//x is not declared inside current function
+		//x becomes a global variable
+
+arg are passed by value
