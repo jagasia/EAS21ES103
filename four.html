@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function init()
+        {
+            document.getElementById("btn1").addEventListener("click",fn1);
+        }
+            
+
+        function fn1()
+        {
+            alert('This is fn1 called now');
+        }
+
+    </script>
+</head>
+<body onload="init()">
+    <!-- <input type="button" value="Click here" onclick="alert('hello world')"> -->
+    <!-- <input type="button" value="CLick me" onclick="fn1()"> -->
+    <input type="button" id="btn1" value="Click this">
+    <script>
+
+    </script>
+</body>
+</html>

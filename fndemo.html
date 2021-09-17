@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fn1()
+        {
+            alert('this is fn1')
+            fn2();
+            alert('the end of fn1')
+            // add2Num(2,3);   //error. So next line will not execute
+            var fn3=new Function("a","b","return a*b");     //function constructor
+            alert(fn3(4,4));
+
+            var fn4=function(a,b){  return a-b; };          //function literal
+            alert(fn4(12,1));
+            alert('ok')
+        }
+
+        function fn2()
+        {
+            function add2Num(a,b)   //this function is available only inside fn2
+            {
+                return a+b;
+            }
+            alert('This is fn2');
+            alert('calling add2Num with 2, 3 results as : '+add2Num(2,3));
+            alert('the end of fn2')
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="Click me" onclick="fn1()">
+</body>
+</html>

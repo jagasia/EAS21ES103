@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fn1()
+        {
+            // alert('hi');
+            var education=document.getElementById("ddlEducation").value;
+            // alert(education);
+            console.log(education);
+        }
+    </script>
+</head>
+<body>
+    <label for="txtFirstName">First Name:</label><input type="text" name="" id="txtFirstName"><br>
+    Gender:
+    <input type="radio" name="gender" id="rdoFemale"><label for="rdoFemale">Female</label>
+    <input type="radio" name="gender" id="rdoMale"><label for="rdoMale">Male</label>
+    <input type="radio" name="gender" id="rdoOther"><label for="rdoOther">Other</label><br>
+    Education:
+    <select name="" id="ddlEducation">
+        <option value="Engineer">B.E.</option>
+        <option value="Technologist">B.Tech.</option>
+        <option value="Arts">B.A.</option>
+        <option value="Master">M.E.</option>
+        <option value="Science">B.Sc.</option>        
+    </select><br>
+
+    <input type="button" value="Ok" onclick="fn1()">
+</body>
+</html>

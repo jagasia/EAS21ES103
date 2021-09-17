@@ -1,0 +1,18 @@
+javascript 
+	geo location
+		we can find the location of the user who is accessing our website
+
+
+	can write javascript program to find browser capabilities
+		browser name, version
+		allows scripts or not
+		
+ 
+css or bootstrap
+	and create a front end
+		form validations
+	
+		show the error messages in red color
+		
+	hint:
+		in javascript, we can apply style to an element

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fn1(x)
+        {
+            // console.log(x.value);
+            x.style.background="yellow";
+        }
+
+        function fn2(x)
+        {
+            // console.log(x.value);
+            x.style.background="white";
+        }
+
+        function fnAdd()
+        {
+            var no1=parseInt(document.getElementById('txtNo1').value);
+            var no2=parseInt(document.getElementById('txtNo2').value);
+            var result=no1+no2;
+            document.getElementById('divResult').innerText=result;
+        }
+    </script>
+</head>
+<body>
+    <input type="text" name="" id="txtNo1" onkeyup="fnAdd()"><br>
+    <input type="text" name="" id="txtNo2" onkeyup="fnAdd()"><br>
+    <div id="divResult"></div>
+    <hr>
+    <hr>
+    
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    <input type="text" onfocus="fn1(this)" onblur="fn2(this)"><br>
+    
+</body>
+</html>
